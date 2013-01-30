@@ -10,9 +10,9 @@ TARGET = project-bar
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        MainWindow.cpp
+SOURCES += src/main.cpp\
+        src/MainWindow.cpp
 
-HEADERS  += MainWindow.h
+HEADERS  += src/MainWindow.h
 
-FORMS    += MainWindow.ui
+FORMS    += ui/MainWindow.ui
