@@ -12,7 +12,7 @@ TARGET = project-bar
 TEMPLATE = app
 
 
-SOURCES += src/main.cpp\
+SOURCES += src/main.cpp \
         src/MainWindow.cpp
 
 HEADERS  += src/MainWindow.h
