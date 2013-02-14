@@ -12,9 +12,12 @@ TARGET = project-bar
 TEMPLATE = app
 
 
+
 SOURCES += src/main.cpp\
-        src/MainWindow.cpp
+    src/barwindow.cpp
 
-HEADERS  += src/MainWindow.h
 
-FORMS    += ui/MainWindow.ui
+
+HEADERS  += src/barwindow.h
+
+FORMS    += ui/barwindow.ui
