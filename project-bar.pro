@@ -12,16 +12,11 @@ TARGET = project-bar
 TEMPLATE = app
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 SOURCES += src/main.cpp\
     src/barwindow.cpp
-=======
-=======
->>>>>>> 7870872d0e46b6f54199104e7a1dcf444fb2ff95
-SOURCES += src/main.cpp \
-        src/MainWindow.cpp
->>>>>>> 7870872d0e46b6f54199104e7a1dcf444fb2ff95
+
+
 
 HEADERS  += src/barwindow.h
 
