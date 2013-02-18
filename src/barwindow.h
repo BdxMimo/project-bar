@@ -15,6 +15,9 @@ public:
     explicit BARWindow(QWidget *parent = 0);
     ~BARWindow();
     
+private slots:
+    void on_buttonSoundImport_clicked();
+
 private:
     Ui::BARWindow *ui;
 };

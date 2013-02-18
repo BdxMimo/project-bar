@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Rölig Tone - Dellandrebox</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
@@ -109,7 +109,7 @@
               </layout>
              </item>
              <item>
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="labelSoundName">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                  <horstretch>0</horstretch>
