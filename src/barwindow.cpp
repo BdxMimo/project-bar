@@ -14,9 +14,3 @@ BARWindow::~BARWindow()
 {
     delete ui;
 }
-
-void BARWindow::on_buttonSoundImport_clicked()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), tr("Files(*.*)"));
-    ui->labelSoundName->setText(fileName);
-}

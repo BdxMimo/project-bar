@@ -14,10 +14,13 @@ TEMPLATE = app
 
 
 SOURCES += src/main.cpp\
-    src/barwindow.cpp
+    src/barwindow.cpp \
+    ui/barsoundbar.cpp
 
 
 
-HEADERS  += src/barwindow.h
+HEADERS  += src/barwindow.h \
+    ui/barsoundbar.h
 
-FORMS    += ui/barwindow.ui
+FORMS    += ui/barwindow.ui \
+    ui/barsoundbar.ui
