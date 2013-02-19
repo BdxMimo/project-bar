@@ -1,5 +1,6 @@
 #include "bartabpattern.h"
 #include "ui_bartabpattern.h"
+#include "barsoundbar.h"
 
 BARtabPattern::BARtabPattern(QWidget *parent) :
     QWidget(parent),
@@ -11,4 +12,10 @@ BARtabPattern::BARtabPattern(QWidget *parent) :
 BARtabPattern::~BARtabPattern()
 {
     delete ui;
+}
+
+void BARtabPattern::on_buttonAddSoundBar_clicked()
+{
+    BARSoundBar *newBarSoundBar=new BARSoundBar(this);
+    ui->soundBarArea->addWidget(newBarSoundBar);
 }

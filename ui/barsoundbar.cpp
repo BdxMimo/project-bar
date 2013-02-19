@@ -20,3 +20,8 @@ void BARSoundBar::on_buttonSoundImport_2_clicked()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), tr("Files(*.*)"));
     ui->labelSoundName_2->setText(fileName);
 }
+
+void BARSoundBar::on_buttonSoundDelete_2_clicked()
+{
+    delete this;
+}
