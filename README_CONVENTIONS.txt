@@ -13,3 +13,10 @@ BONNES PRATIQUES RELATIVES A GIT :
 - Avant chaque commit, faites un pull (on sait jamais, d'autres membres ont peut-être fait un commit avant vous !)
 - Faites des commits / push souvent, mais il ne faut pas qu'il y ait de bug ou de code incomplet !
 - Mettez un message de commit clair et compréhensible à chaque fois.
+
+UTILISATION DE DOXYGEN :
+
+- Téléchargez et installez Doxygen : http://www.stack.nl/~dimitri/doxygen/download.html
+- Sous Qt Creator, ouvrez le projet puis cliquez sur l'onglet "Projets" (à gauche)
+- Dans les étapes de compilation, cliquez sur "Ajouter l'étape Compiler" puis sélectionnez "Etape personnalisée"
+- Remplir les trois champs : Commande : doxygen, Arguments : doxygen_config, Répertoire de travail : %{sourceDir}
