@@ -15,12 +15,15 @@ TEMPLATE = app
 
 SOURCES += src/main.cpp\
     src/barwindow.cpp \
-    ui/barsoundbar.cpp
+    ui/barsoundbar.cpp \
+    ui/bartabpattern.cpp
 
 
 
 HEADERS  += src/barwindow.h \
-    ui/barsoundbar.h
+    ui/barsoundbar.h \
+    ui/bartabpattern.h
 
 FORMS    += ui/barwindow.ui \
-    ui/barsoundbar.ui
+    ui/barsoundbar.ui \
+    ui/bartabpattern.ui
