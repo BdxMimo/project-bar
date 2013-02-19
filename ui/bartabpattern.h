@@ -15,6 +15,9 @@ public:
     explicit BARtabPattern(QWidget *parent = 0);
     ~BARtabPattern();
     
+private slots:
+    void on_buttonAddSoundBar_clicked();
+
 private:
     Ui::BARtabPattern *ui;
 };
