@@ -2,6 +2,7 @@
 #define BARSOUNDBAR_H
 
 #include <QWidget>
+#include <QVector>
 
 namespace Ui {
 class BARSoundBar;
@@ -20,7 +21,10 @@ private slots:
 
     void on_buttonSoundDelete_2_clicked();
 
+
+
 private:
+    QVector<bool> rhythm; // vector that contains the values of checkboxes
     Ui::BARSoundBar *ui;
 };
 
