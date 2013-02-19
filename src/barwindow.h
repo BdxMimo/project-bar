@@ -15,6 +15,8 @@ public:
     explicit BARWindow(QWidget *parent = 0);
     ~BARWindow();
     
+private slots:
+
 private:
     Ui::BARWindow *ui;
 };
