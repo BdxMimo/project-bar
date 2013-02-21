@@ -13,7 +13,18 @@
 *.a
 
 # user QtCreator project files
-* .pro.user
+*.pro.user
 
 # compiled doc
 doc/
+
+#Sound files (for the moment)
+*.wav
+
+#Compile directories and Makefiles
+debug/
+release/
+Makefile*
+
+#generated UI files (for the moment ?)
+ui_*.h

@@ -14,3 +14,14 @@
 
 # user QtCreator project files
 * .pro.user
+
+# compiled doc
+doc/
+
+#Sound files (for the moment)
+*.wav
+
+#Compile directories and Makefiles
+debug/
+release/
+Makefile*
