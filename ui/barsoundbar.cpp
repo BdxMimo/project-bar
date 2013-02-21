@@ -3,11 +3,13 @@
 #include <QString>
 #include <QFileDialog>
 
-BARSoundBar::BARSoundBar(QWidget *parent) :
+BARSoundBar::BARSoundBar(QWidget *parent,QString name) :
     QWidget(parent),
     ui(new Ui::BARSoundBar)
 {
     ui->setupUi(this);
+    fileName=name;
+    ui->labelSoundName_2->setText(fileName);
 }
 
 BARSoundBar::~BARSoundBar()
@@ -17,11 +19,22 @@ BARSoundBar::~BARSoundBar()
 
 void BARSoundBar::on_buttonSoundImport_2_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), tr("Files(*.*)"));
+    fileName = QFileDialog::getOpenFileName(this, tr("Open File"), tr("Files(*.*)"));
     ui->labelSoundName_2->setText(fileName);
 }
 
 void BARSoundBar::on_buttonSoundDelete_2_clicked()
 {
     delete this;
+}
+
+void BARSoundBar::setFileName(QString name)
+{
+    fileName=name;
+    ui->labelSoundName_2->setText(fileName);
+}
+
+QString BARSoundBar::getFileName()
+{
+    return fileName;
 }
