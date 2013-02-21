@@ -21,7 +21,6 @@ public:
     
 private slots:
     void on_buttonSoundImport_2_clicked();
-
     void on_buttonSoundDelete_2_clicked();
 
 
@@ -30,6 +29,7 @@ private:
     QVector<bool> rhythm; // vector that contains the values of checkboxes
     Ui::BARSoundBar *ui;
     QString fileName;
+    int gaugeNumber;
 
 };
 

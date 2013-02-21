@@ -2,6 +2,7 @@
 #include "ui_barsoundbar.h"
 #include <QString>
 #include <QFileDialog>
+#include <ui/bargauge.h>
 
 BARSoundBar::BARSoundBar(QWidget *parent,QString name) :
     QWidget(parent),
@@ -10,6 +11,12 @@ BARSoundBar::BARSoundBar(QWidget *parent,QString name) :
     ui->setupUi(this);
     fileName=name;
     ui->labelSoundName_2->setText(fileName);
+    gaugeNumber=16;
+    for(int i=0;i<gaugeNumber;i++)
+    {
+        BARGauge *newBarGauge = new BARGauge();
+        ui->horizontalLayout->addWidget(newBarGauge);
+    }
 }
 
 BARSoundBar::~BARSoundBar()
