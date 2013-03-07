@@ -1,18 +1,17 @@
 #ifndef BARSOXSOUND_H
 #define BARSOXSOUND_H
 
-#define AUDIO_DRIVER    "waveaudio"
+#ifndef AUDIO_DRIVER
+    #define AUDIO_DRIVER    "waveaudio"
+#endif
+
 #define MAX_SAMPLES     1024
 
 #include <sox.h>
 
 /**
- * @todo "BARSoxPiste"
- **/
-
-/**
  * @brief libSoX wrapper for one sound.
- * @author Hugo Duprat <a href="mailto:hugo.duprat@gmail.com">[Contact]</a>
+ * @author Hugo Duprat [<a href="mailto:hugo.duprat@gmail.com">Contact</a>]
  * @date 2/21/2013
  */
 class BARSoxSound
@@ -44,7 +43,8 @@ class BARSoxSound
         bool load(sox_format_t* sound);
         bool play();
 
-        sox_format_t* get();
+        sox_format_t* getFormat();
+        sox_sample_t* getBuffer();
 
         ~BARSoxSound();
 };
