@@ -29,7 +29,7 @@
       <enum>QTabWidget::North</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="BARtabPattern" name="tabPattern">
       <attribute name="title">
@@ -37,7 +37,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2"/>
      </widget>
-     <widget class="QWidget" name="tabSong">
+     <widget class="BARTabSong" name="tabSong">
       <attribute name="title">
        <string>Song</string>
       </attribute>
@@ -51,6 +51,12 @@
    <class>BARtabPattern</class>
    <extends>QWidget</extends>
    <header>ui/bartabpattern.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BARTabSong</class>
+   <extends>QWidget</extends>
+   <header>ui/bartabsong.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
