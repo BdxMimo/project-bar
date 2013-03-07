@@ -42,11 +42,6 @@
        <string>Song</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="tabExport">
-      <attribute name="title">
-       <string>Export</string>
-      </attribute>
-     </widget>
     </widget>
    </item>
   </layout>

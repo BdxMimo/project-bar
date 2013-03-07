@@ -33,7 +33,7 @@ BARSoxSound::BARSoxSound(const char* filename)
         sound = sox_open_read(filename, NULL, NULL, NULL);
         if (sound != NULL) {
             duration = sound->signal.length/(sound->signal.rate*sound->signal.channels);
-            audioOutput = sox_open_write("default", &sound->signal, NULL, AUDIO_DRIVER, NULL, NULL);
+            audioOutput = sox_open_write("default", &sound->signal, &sound->encoding, AUDIO_DRIVER, &sound->oob, NULL);
             sharedSound = false;
         } else {
             duration = 0;
@@ -61,7 +61,7 @@ BARSoxSound::BARSoxSound(sox_format_t *sound)
     if (init() && sound != NULL) {
         BARSoxSound::sound = sound;
         duration = sound->signal.length/(sound->signal.rate*sound->signal.channels);
-        audioOutput = sox_open_write("default", &sound->signal, NULL, AUDIO_DRIVER, NULL, NULL);
+        audioOutput = sox_open_write("default", &sound->signal, &sound->encoding, AUDIO_DRIVER, &sound->oob, NULL);
     } else {
         sound = NULL;
         duration = 0;
@@ -106,7 +106,7 @@ bool BARSoxSound::load(char *filename)
     sound = sox_open_read(filename, NULL, NULL, NULL);
     if (sound != NULL) {
         duration = sound->signal.length/(sound->signal.rate*sound->signal.channels);
-        audioOutput = sox_open_write("default", &sound->signal, NULL, AUDIO_DRIVER, NULL, NULL);
+        audioOutput = sox_open_write("default", &sound->signal, &sound->encoding, AUDIO_DRIVER, &sound->oob, NULL);
         sharedSound = false;
         return true;
     }
@@ -132,7 +132,7 @@ bool BARSoxSound::load(sox_format_t *sound)
     //load the new sound
     BARSoxSound::sound = sound;
     duration = sound->signal.length/(sound->signal.rate*sound->signal.channels);
-    audioOutput = sox_open_write("default", &sound->signal, NULL, AUDIO_DRIVER, NULL, NULL);
+    audioOutput = sox_open_write("default", &sound->signal, &sound->encoding, AUDIO_DRIVER, &sound->oob, NULL);
     sharedSound = true;
     return true;
 }
@@ -149,9 +149,20 @@ bool BARSoxSound::play()
         memorizeBuffer = true;
     }
 
-    size_t readBytes = sox_write(audioOutput, buffer, sound->signal.length);
+    for (sox_uint64_t i=0; i<sound->signal.length; i+=MAX_SAMPLES) {
+        sox_write(audioOutput, buffer+i, MAX_SAMPLES);
+    }
 
-    return readBytes > 0;
+    return true;
+}
+
+/**
+ * @brief Gets the sound pointer for sharing.
+ * @return A sox_format_t pointer to the sound.
+ */
+sox_format_t* BARSoxSound::get()
+{
+    return sound;
 }
 
 /**

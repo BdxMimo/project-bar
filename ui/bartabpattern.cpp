@@ -1,6 +1,8 @@
 #include "bartabpattern.h"
 #include "ui_bartabpattern.h"
 #include "barsoundbar.h"
+#include <QString>
+#include <QFileDialog>
 
 BARtabPattern::BARtabPattern(QWidget *parent) :
     QWidget(parent),
@@ -16,6 +18,12 @@ BARtabPattern::~BARtabPattern()
 
 void BARtabPattern::on_buttonAddSoundBar_clicked()
 {
-    BARSoundBar *newBarSoundBar=new BARSoundBar(this);
-    ui->soundBarArea->addWidget(newBarSoundBar);
+    QString name = QFileDialog::getOpenFileName(this, tr("Open File"), tr("Files(*.*)"));
+
+    // test if user didn't cancel in the file explorer : avoid the creation of a new soundbar with no file
+    if(name!="")
+    {
+        BARSoundBar *newBarSoundBar=new BARSoundBar(this,name);
+        ui->soundBarArea->addWidget(newBarSoundBar);
+    }
 }

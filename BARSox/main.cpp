@@ -8,11 +8,12 @@ using namespace std;
 
 int main()
 {
-    BARSoxSound sound("wav.wav");
-    BARSoxSound unk("unknown.wav");
+    BARSoxSound half1("sixten.wav"), half2("bjorken.wav");
+    half1.play();
+    half2.play();
+    for (int k=1; k<101; k++)
+        cout << k << endl;
 
-    cout << sound.getFilename() << endl << "Duration: " << sound.getDuration() << endl;
-    sound.play();
     return 0;
 }
 
