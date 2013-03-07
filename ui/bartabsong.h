@@ -4,6 +4,8 @@
 
 #include <QWidget>
 #include <QFileDialog>
+#include <QVector>
+#include <QColor>
 
 
 namespace Ui {
@@ -25,6 +27,8 @@ private slots:
 
 private:
     Ui::BARTabSong *ui;
+    QVector<QColor> patternBarColorList;
+    int nbPatternCreated;
 };
 
 #endif // BARTABSONG_H
