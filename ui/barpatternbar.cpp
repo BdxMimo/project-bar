@@ -19,3 +19,5 @@ BARPatternBar::~BARPatternBar()
 {
     delete ui;
 }
+
+

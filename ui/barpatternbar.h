@@ -5,6 +5,8 @@
 #include <QString>
 #include <QColor>
 
+
+
 namespace Ui {
 class BARPatternBar;
 }
@@ -21,6 +23,7 @@ private:
     Ui::BARPatternBar *ui;
     QString fileName;
     QColor bgColor;
+
 };
 
 #endif // BARPATTERNBAR_H

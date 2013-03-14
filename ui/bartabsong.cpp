@@ -1,6 +1,8 @@
 #include "bartabsong.h"
 #include "ui_bartabsong.h"
 #include "barpatternbar.h"
+#include <QGraphicsRectItem>
+
 
 BARTabSong::BARTabSong(QWidget *parent) :
     QWidget(parent),
@@ -18,12 +20,22 @@ BARTabSong::BARTabSong(QWidget *parent) :
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
 
-    QBrush redBrush(Qt::red);
+    QBrush redBrush(Qt::white);
     QPen blackPen(Qt::black);
 
     blackPen.setWidth(1);
-    rectangle = scene->addRect(0,0,100,20,blackPen,redBrush);
-    rectangle2 = scene->addRect(100,0,100,20,blackPen,redBrush);
+    for(int i=0;i<50;i++)
+    {
+        QGraphicsRectItem *rectangle=new QGraphicsRectItem(i*100,0,100,60);
+        QGraphicsTextItem *label=new QGraphicsTextItem(QString::number(i));
+        label->setPos(i*100-5,-25);
+                rectangle->setBrush(redBrush);
+                rectangle->setPen(blackPen);
+                scene->addItem(rectangle);
+                scene->addItem(label);
+                stock.push_back(rectangle);
+    }
+
 }
 
 BARTabSong::~BARTabSong()
