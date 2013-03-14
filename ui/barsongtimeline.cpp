@@ -2,10 +2,11 @@
 #include "ui_barsongtimeline.h"
 
 BARSongTimeLine::BARSongTimeLine(QWidget *parent) :
-    QScrollArea(parent),
+    QWidget(parent),
     ui(new Ui::BARSongTimeLine)
 {
     ui->setupUi(this);
+
 }
 
 BARSongTimeLine::~BARSongTimeLine()

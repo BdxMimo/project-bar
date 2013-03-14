@@ -3,6 +3,7 @@
 #include <QString>
 #include <QFileDialog>
 #include <ui/bargauge.h>
+#include <QFileInfo>
 
 BARSoundBar::BARSoundBar(QWidget *parent,QString name) :
     QWidget(parent),
@@ -26,7 +27,9 @@ BARSoundBar::~BARSoundBar()
 
 void BARSoundBar::on_buttonSoundImport_2_clicked()
 {
-    fileName = QFileDialog::getOpenFileName(this, tr("Open File"), tr("Files(*.*)"));
+    QString path = QFileDialog::getOpenFileName(this, tr("Open File"), tr("Files(*.*)"));
+    QFileInfo fi(path);
+    fileName=fi.baseName();
     ui->labelSoundName_2->setText(fileName);
 }
 

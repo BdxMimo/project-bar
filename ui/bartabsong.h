@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QVector>
 #include <QColor>
+#include <QGraphicsScene>
+
 
 
 namespace Ui {
@@ -29,6 +31,11 @@ private:
     Ui::BARTabSong *ui;
     QVector<QColor> patternBarColorList;
     int nbPatternCreated;
+    QGraphicsScene *scene;
+    QGraphicsRectItem *rectangle;
+    QGraphicsRectItem *rectangle2;
+
+
 };
 
 #endif // BARTABSONG_H

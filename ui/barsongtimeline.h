@@ -1,13 +1,14 @@
 #ifndef BARSONGTIMELINE_H
 #define BARSONGTIMELINE_H
 
-#include <QScrollArea>
+#include <QWidget>
+#include <QPainter>
 
 namespace Ui {
 class BARSongTimeLine;
 }
 
-class BARSongTimeLine : public QScrollArea
+class BARSongTimeLine : public QWidget
 {
     Q_OBJECT
     
