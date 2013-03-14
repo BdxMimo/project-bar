@@ -27,15 +27,21 @@ int main()
 {
     BARSoxSound snd("bar.wav");
 
-    BARSoxPositionNode* nodo = new BARSoxPositionNode(snd.getBuffer(), snd.getFormat()->signal.length);
+    BARSoxPositionNode* nodo = new BARSoxPositionNode(0, snd.getBuffer(), snd.getFormat()->signal.length);
 
     cout << "nodo first" << endl;
     display(nodo,nodo->get().pos);
     cout << endl;
 
     nodo->divideLeaves();
+    nodo->divideLeaves();
 
     cout << "nodo second" << endl;
+    display(nodo,nodo->get().pos);
+    cout << endl;
+
+    nodo->mergeLeaves();
+    cout << "nodo third" << endl;
     display(nodo,nodo->get().pos);
     cout << endl;
 
