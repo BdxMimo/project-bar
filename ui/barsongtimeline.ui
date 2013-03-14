@@ -1,10 +1,7 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>BARSongTimeLine</class>
- <widget class="QScrollArea" name="BARSongTimeLine">
-  <property name="widgetResizable">
-   <bool>true</bool>
-  </property>
+ <widget class="QWidget" name="BARSongTimeLine">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,8 +11,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ScrollArea</string>
+   <string>Form</string>
   </property>
-  <widget class="QWidget" name="scrollAreaWidgetContents"/>
  </widget>
+ <resources/>
+ <connections/>
 </ui>

@@ -90,21 +90,7 @@
       </widget>
      </item>
      <item>
-      <widget class="BARSongTimeLine" name="scrollArea_2">
-       <property name="widgetResizable">
-        <bool>true</bool>
-       </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>295</width>
-          <height>359</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
+      <widget class="QGraphicsView" name="graphicsView"/>
      </item>
     </layout>
    </item>
@@ -129,14 +115,6 @@
   <zorder>verticalSpacer</zorder>
   <zorder>scrollArea_2</zorder>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>BARSongTimeLine</class>
-   <extends>QScrollArea</extends>
-   <header>ui/barsongtimeline.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
