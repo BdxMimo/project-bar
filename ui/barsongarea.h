@@ -2,7 +2,7 @@
 #define BARSONGAREA_H
 #include <QVector>
 #include <QColor>
-#include <QGraphicsScene>
+
 
 #include <QWidget>
 

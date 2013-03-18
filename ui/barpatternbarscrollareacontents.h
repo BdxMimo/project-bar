@@ -27,6 +27,12 @@ private:
     Ui::BARPatternBarScrollAreaContents *ui;
     QVector<QColor> patternBarColorList;
     int nbPatternCreated;
+
+protected:
+    //void dragEnterEvent(QDragEnterEvent *event);
+    //void dragMoveEvent(QDragMoveEvent *event);
+    //void dropEvent(QDropEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 };
 
 #endif // BARPATTERNBARSCROLLAREACONTENTS_H
