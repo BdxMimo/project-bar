@@ -20,7 +20,8 @@ SOURCES += src/main.cpp\
     ui/bargauge.cpp \
     ui/bartabsong.cpp \
     ui/barpatternbar.cpp \
-    ui/barsongtimeline.cpp
+    ui/barsongtimeline.cpp \
+    ui/barsongarea.cpp
 
 
 
@@ -30,7 +31,8 @@ HEADERS  += src/barwindow.h \
     ui/bargauge.h \
     ui/bartabsong.h \
     ui/barpatternbar.h \
-    ui/barsongtimeline.h
+    ui/barsongtimeline.h \
+    ui/barsongarea.h
 
 FORMS    += ui/barwindow.ui \
     ui/barsoundbar.ui \
@@ -38,4 +40,5 @@ FORMS    += ui/barwindow.ui \
     ui/bargauge.ui \
     ui/bartabsong.ui \
     ui/barpatternbar.ui \
-    ui/barsongtimeline.ui
+    ui/barsongtimeline.ui \
+    ui/barsongarea.ui

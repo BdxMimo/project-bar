@@ -24,6 +24,7 @@ private:
     QString fileName;
     QColor bgColor;
 
+
 };
 
 #endif // BARPATTERNBAR_H
