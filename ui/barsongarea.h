@@ -23,8 +23,8 @@ private:
     Ui::BARSongArea *ui;
     QVector<QColor> patternBarColorList;
     int nbPatternCreated;
-    QGraphicsScene *scene;
-    QVector<QGraphicsRectItem*> stock;
+
+
 
 
 };
