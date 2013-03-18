@@ -18,6 +18,8 @@ class BARPatternBar : public QWidget
 public:
     explicit BARPatternBar(QWidget *parent = 0, QString name="",QColor color=QColor(0,0,0));
     ~BARPatternBar();
+
+    QString getFileName();
     
 private:
     Ui::BARPatternBar *ui;
