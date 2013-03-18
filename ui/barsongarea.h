@@ -18,11 +18,7 @@ public:
     explicit BARSongArea(QWidget *parent = 0);
     ~BARSongArea();
 
-private slots:
 
-
-    void on_buttonAddPatternBar_clicked();
-    
 private:
     Ui::BARSongArea *ui;
     QVector<QColor> patternBarColorList;
