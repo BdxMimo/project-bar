@@ -26,7 +26,7 @@ class BARSoxTrack
         unsigned int notesPerBeat; /**< Amount of notes per beat (1,2,4 or 8).*/
 
         std::vector<sox_sample_t> trackSoundBuffer; /**< Sound buffer for the track sound. */
-        std::vector< BARSoxNode<unsigned int> > volumeTrees; /**< Volume trees per beat for the track. */
+        std::vector< BARSoxNode<unsigned int>* > volumeTrees; /**< Volume trees per beat for the track. */
 
         bool mute; /**< @c true if mute track, @c false otherwise. */
 

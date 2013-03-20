@@ -30,7 +30,12 @@ BARSoxTrack::BARSoxTrack(const char *filename, unsigned int nBeats, unsigned int
     sox_read(sound, &trackSoundBuffer[0], sound->signal.length);
 
     volumeTrees.clear();
-    volumeTrees.resize(nBeats);
+    for (unsigned int beat = 0; beat < nBeats; beat++) {
+        volumeTrees.push_back(new BARSoxNode<unsigned int>);
+        for(unsigned int elts = 1; elts < notesPerBeat; elts *= 2) {
+            volumeTrees.back()->divideLeaves();
+        }
+    }
 }
 
 void BARSoxTrack::updateVolumeTrees(unsigned int npbBegin, unsigned int npbEnd)
@@ -38,12 +43,12 @@ void BARSoxTrack::updateVolumeTrees(unsigned int npbBegin, unsigned int npbEnd)
     while (npbBegin != npbEnd) {
         if (npbBegin < npbEnd) {
             for (unsigned int i=0; i < nBeats; i++) {
-                volumeTrees[i].divideLeaves();
+                volumeTrees[i]->divideLeaves();
             }
             npbBegin*=2;
         } else {
             for (unsigned int i=0; i < nBeats; i++) {
-                volumeTrees[i].mergeLeaves();
+                volumeTrees[i]->mergeLeaves();
             }
             npbBegin/=2;
         }
@@ -53,13 +58,12 @@ void BARSoxTrack::updateVolumeTrees(unsigned int npbBegin, unsigned int npbEnd)
 void BARSoxTrack::nBeatsChanged(unsigned int newVal)
 {
     if (nBeats < newVal) {
-        BARSoxNode<unsigned int> node;
-
-        for(unsigned int elts = 1; elts != notesPerBeat; elts *= 2) {
-            node.divideLeaves();
+        for (unsigned int beat = nBeats; beat < newVal; beat++) {
+            volumeTrees.push_back(new BARSoxNode<unsigned int>());
+            for(unsigned int elts = 1; elts != notesPerBeat; elts *= 2) {
+                volumeTrees.back()->divideLeaves();
+            }
         }
-
-        volumeTrees.resize(newVal, node);
     } else if (nBeats > newVal) {
         volumeTrees.resize(newVal);
     }
@@ -87,7 +91,7 @@ unsigned int BARSoxTrack::getVolumeAt(unsigned int i)
         return 0;
     }
 
-    return mute ? 0 : volumeTrees[beat].getAt(note);
+    return mute ? 0 : volumeTrees[beat]->getAt(note);
 }
 
 void BARSoxTrack::setVolumeAt(unsigned int i, unsigned int vol)
@@ -96,7 +100,7 @@ void BARSoxTrack::setVolumeAt(unsigned int i, unsigned int vol)
     unsigned int note = i%notesPerBeat;
 
     if (beat<nBeats) {
-        volumeTrees[beat].setAt(note, vol);
+        volumeTrees[beat]->setAt(note, vol);
     }
 }
 

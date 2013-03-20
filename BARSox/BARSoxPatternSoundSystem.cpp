@@ -163,12 +163,12 @@ void BARSoxPatternSoundSystem::updatePositionTrees()
 void BARSoxPatternSoundSystem::updateSoundBuffer()
 {
     BARSoxTrack track;
-    BARSoxPositionNode* posNode;
+    BARSoxPositionNode* posNode = NULL;
     sox_sample_t* position = NULL;
     vector<sox_sample_t> trackBuf;
 
-    unsigned int masterVolume = 0;
-    unsigned int volume = 0;
+    int masterVolume = 0;
+    int volume = 0;
 
     unsigned int i = 0, j = 0, beat = 0, note = 0;
 
@@ -193,8 +193,11 @@ void BARSoxPatternSoundSystem::updateSoundBuffer()
 
                     if (volume > 0) {
                         for(j=0; j<trackBuf.size() && position != &sndBuf.back(); j++) {
-                            *position += volume*(masterVolume*trackBuf[j]/100)/100;
-                            position++;
+                            if (trackBuf[j] != 0) {
+                                *position += masterVolume*(volume*trackBuf[j]/100)/100;
+                                position++;
+                            }
+
                         }
                     }
                 }
@@ -216,20 +219,21 @@ void BARSoxPatternSoundSystem::play()
     BARSoxBufferPos noteBufPos;
     unsigned int note = 0;
 
-    sox_uint64_t i = 0, imax = 0;
+    sox_uint64_t i = 0, imax = 0, ibegin = 0;
 
     for (unsigned int beat = 0; beat < nBeats; beat++) {
         beatNode = positionTrees[beat];
         for (note = 0; note < notesPerBeat; note++) {
             noteBufPos = beatNode->getAt(note);
 
-            imax = noteBufPos.len - MAX_SAMPLES;
+            ibegin = noteBufPos.pos-&sndBuf[0];
+            imax = ibegin+noteBufPos.len - MAX_SAMPLES;
 
-            for (i=noteBufPos.pos-&sndBuf[0]; i<imax; i+=MAX_SAMPLES) {
+            for (i=ibegin; i<imax; i+=MAX_SAMPLES) {
                 sox_write(audioOutput, &sndBuf[i], MAX_SAMPLES);
             }
             //for the rest
-            sox_write(audioOutput, &sndBuf[i], noteBufPos.len-i);
+            sox_write(audioOutput, &sndBuf[i], i-imax);
         }
     }
 }

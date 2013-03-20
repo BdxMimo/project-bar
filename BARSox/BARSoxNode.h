@@ -112,12 +112,11 @@ class BARSoxNode
                 return this;
             }
 
-            float iLeft = i-1e-5, iRight = i+1e-5;
-            if (id < iLeft) {
+            if (id > i) {
                 return left->getNode(i);
             }
 
-            if (id > iRight) {
+            if (id < i) {
                 return right->getNode(i);
             }
 
