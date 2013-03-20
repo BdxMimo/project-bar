@@ -16,8 +16,6 @@ BARSoxTrack::BARSoxTrack() : masterVolume(100), nBeats(4), notesPerBeat(2), mute
  * @param notesPerBeat Number of notes per beat in the track.
  * @param masterVolume Master volume of the track.
  *
- * @todo Deal with filename to get the trackSoundBuffer and the beatTrees,
- * and take the case <tt>audioOutput == NULL</tt> in account.
  */
 BARSoxTrack::BARSoxTrack(const char *filename, unsigned int nBeats, unsigned int notesPerBeat, unsigned int masterVolume)
 {
@@ -32,19 +30,19 @@ BARSoxTrack::BARSoxTrack(const char *filename, unsigned int nBeats, unsigned int
     sox_read(sound, &trackSoundBuffer[0], sound->signal.length);
 
     volumeTrees.clear();
-    volumeTrees.resize(nBeats, BARSoxNode<unsigned int>(0));
+    volumeTrees.resize(nBeats);
 }
 
 void BARSoxTrack::updateVolumeTrees(unsigned int npbBegin, unsigned int npbEnd)
 {
     while (npbBegin != npbEnd) {
         if (npbBegin < npbEnd) {
-            for (int i=0; i < nBeats; i++) {
+            for (unsigned int i=0; i < nBeats; i++) {
                 volumeTrees[i].divideLeaves();
             }
             npbBegin*=2;
         } else {
-            for (int i=0; i < nBeats; i++) {
+            for (unsigned int i=0; i < nBeats; i++) {
                 volumeTrees[i].mergeLeaves();
             }
             npbBegin/=2;
@@ -67,4 +65,62 @@ void BARSoxTrack::nBeatsChanged(unsigned int newVal)
     }
 
     nBeats = newVal;
+}
+
+void BARSoxTrack::notesPerBeatChanged(unsigned int newVal)
+{
+    updateVolumeTrees(notesPerBeat, newVal);
+    notesPerBeat = newVal;
+}
+
+const vector<sox_sample_t>& BARSoxTrack::getTrackSoundBuffer()
+{
+    return trackSoundBuffer;
+}
+
+unsigned int BARSoxTrack::getVolumeAt(unsigned int i)
+{
+    unsigned int beat = i/notesPerBeat;
+    unsigned int note = i%notesPerBeat;
+
+    if (beat>=nBeats) {
+        return 0;
+    }
+
+    return mute ? 0 : volumeTrees[beat].getAt(note);
+}
+
+void BARSoxTrack::setVolumeAt(unsigned int i, unsigned int vol)
+{
+    unsigned int beat = i/notesPerBeat;
+    unsigned int note = i%notesPerBeat;
+
+    if (beat<nBeats) {
+        volumeTrees[beat].setAt(note, vol);
+    }
+}
+
+unsigned int BARSoxTrack::getMasterVolume()
+{
+    return masterVolume;
+}
+
+void BARSoxTrack::setMasterVolume(unsigned int mv)
+{
+    masterVolume = mv;
+}
+
+bool BARSoxTrack::isMute()
+{
+    return mute;
+}
+
+void BARSoxTrack::setMute(bool mute)
+{
+    BARSoxTrack::mute = mute;
+}
+
+BARSoxTrack::~BARSoxTrack()
+{
+
 }
