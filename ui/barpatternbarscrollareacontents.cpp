@@ -54,8 +54,12 @@ void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
     {
         return;}
 
-      //  QPixmap pixmap = *child->pixmap();
+
         BARPatternBar *pBar = static_cast<BARPatternBar*>(childAt(event->pos()));
+
+        QSize patternSize(100,60);
+        QPixmap pixmap(patternSize);
+        pixmap.fill(pBar->getBgColor());
 
         QByteArray itemData;
         QDataStream dataStream(&itemData, QIODevice::WriteOnly);
@@ -69,6 +73,7 @@ void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
 
         QDrag *drag = new QDrag(this);
         drag->setMimeData(mimeData);
+        drag->setPixmap(pixmap);
 
         drag->setHotSpot(event->pos() - child->pos());
 
