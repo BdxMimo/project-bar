@@ -22,18 +22,12 @@ public:
     explicit BARTabSong(QWidget *parent = 0);
     ~BARTabSong();
     
-private slots:
 
-
-    void on_buttonAddPatternBar_clicked();
 
 private:
     Ui::BARTabSong *ui;
-    QVector<QColor> patternBarColorList;
-    int nbPatternCreated;
-    QGraphicsScene *scene;
-    QGraphicsRectItem *rectangle;
-    QGraphicsRectItem *rectangle2;
+
+
 
 
 };

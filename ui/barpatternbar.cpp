@@ -1,11 +1,15 @@
 #include "barpatternbar.h"
 #include "ui_barpatternbar.h"
 
+
 BARPatternBar::BARPatternBar(QWidget *parent, QString name, QColor color) :
     QWidget(parent),
     ui(new Ui::BARPatternBar)
 {
     ui->setupUi(this);
+
+    setAcceptDrops(true);
+
     fileName=name;
     ui->labelPatternName->setText(fileName);
     bgColor=color;
@@ -19,3 +23,4 @@ BARPatternBar::~BARPatternBar()
 {
     delete ui;
 }
+
