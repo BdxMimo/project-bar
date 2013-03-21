@@ -2,6 +2,7 @@
 #define BARSOXNODE_H
 
 #include <sox.h>
+#include <assert.h>
 
 template<typename T>
 /**
@@ -84,8 +85,10 @@ class BARSoxNode
             if (left->isLeaf()) {
                 id = left->id/2;
                 data = left->data;
+
                 delete left;
                 left = NULL;
+
                 delete right;
                 right = NULL;
             } else {
@@ -105,12 +108,15 @@ class BARSoxNode
          */
         BARSoxNode* getNode(float i)
         {
-            float iLeft = i-1e-5, iRight = i+1e-5;
-            if (id < iLeft) {
+            if (isLeaf()) {
+                return this;
+            }
+
+            if (id > i) {
                 return left->getNode(i);
             }
 
-            if (id > iRight) {
+            if (id < i) {
                 return right->getNode(i);
             }
 
@@ -136,6 +142,16 @@ class BARSoxNode
         }
 
         /**
+         * @brief Sets data to a specific node.
+         * @param id The ID of the node to modify.
+         * @param data The data to set.
+         */
+        void setAt(float id, T data)
+        {
+            getNode(id)->set(data);
+        }
+
+        /**
          * @brief Gets the data from the node.
          * @return The data assigned to the node.
          */
@@ -151,6 +167,16 @@ class BARSoxNode
         float getId()
         {
             return id;
+        }
+
+        /**
+         * @brief Gets the data from a specific node.
+         * @param id The ID of the node to modify.
+         * @return The data of the node.
+         */
+        T getAt(float id)
+        {
+            return getNode(id)->get();
         }
 
         /**
@@ -185,8 +211,14 @@ class BARSoxNode
          */
         virtual ~BARSoxNode()
         {
-            delete left;
-            delete right;
+            if (!isLeaf()) {
+                delete left;
+                left = NULL;
+                delete right;
+                right = NULL;
+            }
+            assert(left==NULL);
+            assert(right==NULL);
         }
 };
 

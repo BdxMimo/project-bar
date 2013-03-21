@@ -1,51 +1,29 @@
 #include <iostream>
 #include "BARSoxSound.h"
-#include "BARSoxTrack.h"
 #include "BARSoxPositionNode.h"
+#include "BARSoxPatternSoundSystem.h"
+
+#include <assert.h>
 
 #define INPUT_ERROR     1
 #define OUTPUT_ERROR    2
 
 using namespace std;
 
-void display(BARSoxPositionNode* n, sox_sample_t* ref)
-{
-    if (!n->isLeaf())
-    {
-        display((BARSoxPositionNode*) n->getLeft(),ref);
-    }
-
-    cout << "Node #" << n->getId() << ": pos(" << n->get().pos-ref << ") len(" << n->get().len << ")" << endl;
-
-    if (!n->isLeaf())
-    {
-        display((BARSoxPositionNode*) n->getRight(),ref);
-    }
-}
-
 int main()
 {
-    BARSoxSound snd("bar.wav");
+    BARSoxPatternSoundSystem soundSys(120, 10, 2);
 
-    BARSoxPositionNode* nodo = new BARSoxPositionNode(0, snd.getBuffer(), snd.getFormat()->signal.length);
+    assert(soundSys.addTrack("bjorken.wav") == 1);
+    assert(soundSys.addTrack("sixten.wav") == 2);
+    soundSys.preview(1);
+    soundSys.preview(0);
 
-    cout << "nodo first" << endl;
-    display(nodo,nodo->get().pos);
-    cout << endl;
+    soundSys.changeVolume(0,0,100);
+    soundSys.changeVolume(1,0,50);
+    soundSys.changeVolume(1,7,90);
 
-    nodo->divideLeaves();
-    nodo->divideLeaves();
-
-    cout << "nodo second" << endl;
-    display(nodo,nodo->get().pos);
-    cout << endl;
-
-    nodo->mergeLeaves();
-    cout << "nodo third" << endl;
-    display(nodo,nodo->get().pos);
-    cout << endl;
-
-    //snd.play();
+    soundSys.play();
 
     return 0;
 }

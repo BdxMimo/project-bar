@@ -9,7 +9,8 @@ CONFIG -= qt
 SOURCES += main.cpp \
     BARSoxSound.cpp \
     BARSoxTrack.cpp \
-    BARSoxBufferPos.cpp
+    BARSoxBufferPos.cpp \
+    BARSoxPatternSoundSystem.cpp
 
 LIBS += -LC:/Sox/sox-14.4.1rc3/src/.libs -llibsox
 INCLUDEPATH += C:/Sox/sox-14.4.1rc3/src/
@@ -19,5 +20,6 @@ HEADERS += \
     BARSoxTrack.h \
     BARSoxNode.h \
     BARSoxPositionNode.h \
-    BARSoxBufferPos.h
+    BARSoxBufferPos.h \
+    BARSoxPatternSoundSystem.h
 

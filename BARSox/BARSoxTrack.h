@@ -1,7 +1,9 @@
 #ifndef BARSOXTRACK_H
 #define BARSOXTRACK_H
 
-#include "BARSoxSound.h"
+#include "BARSoxPositionNode.h"
+#include "BARSoxNode.h"
+#include <sox.h>
 #include <vector>
 
 #ifndef AUDIO_DRIVER
@@ -10,44 +12,41 @@
 
 /**
  * @brief The BARSoxTrack class handles data for one track.
- * A track contains only one kind of sound, repeated along units (corresponding to eighth notes in the current tempo).
+ * A track contains only one kind of sound, repeated along beats.
  * @author Hugo Duprat [<a href="mailto:hugo.duprat@gmail.com">Contact</a>]
- * @date 2/21/2013
+ * @date 3/08/2013
+ *
+ * @todo See if it would be useful to create an instance counter.
  */
 class BARSoxTrack
 {
-    private:
-        BARSoxSound sound;
-        unsigned int tempo;
-        float masterVolume;
-        std::vector<float> units;
+    protected:
+        unsigned int masterVolume; /**< Master volume for the track. */
+        unsigned int nBeats; /**< Number of beats of the pattern.*/
+        unsigned int notesPerBeat; /**< Amount of notes per beat (1,2,4 or 8).*/
 
-        sox_format_t* soundFormat;
-        sox_format_t* audioOutput;
-        std::vector<sox_sample_t> buffer;
-        double sampleRate;
-        unsigned int unitLength;
-        sox_uint64_t soundLength;
+        std::vector<sox_sample_t> trackSoundBuffer; /**< Sound buffer for the track sound. */
+        std::vector< BARSoxNode<unsigned int>* > volumeTrees; /**< Volume trees per beat for the track. */
 
+        bool mute; /**< @c true if mute track, @c false otherwise. */
 
     public:
         BARSoxTrack();
-        BARSoxTrack(BARSoxSound sound, std::vector<sox_sample_t>& buffer, float masterVolume = 1,
-                     unsigned int tempo = 120, sox_format_t* audioOutput = NULL);
-        BARSoxTrack(BARSoxSound sound, float masterVolume, unsigned int tempo, unsigned int nbUnits, sox_format_t *audioOutput = NULL);
+        BARSoxTrack(const char* filename,unsigned int nBeats = 4, unsigned int notesPerBeat = 2, unsigned int masterVolume = 100);
 
-        bool preview();
+        void updateVolumeTrees(unsigned int npbBegin, unsigned int npbEnd);
+        void nBeatsChanged(unsigned int newVal);
+        void notesPerBeatChanged(unsigned int newVal);
 
-        unsigned int getTempo() const;
-        float getMasterVolume() const;
+        const std::vector<sox_sample_t>& getTrackSoundBuffer();
+        unsigned int getVolumeAt(unsigned int i);
+        void setVolumeAt(unsigned int i, unsigned int vol);
 
-        void setMasterVolume(float vol);
-        void setTempo(unsigned int t);
+        unsigned int getMasterVolume();
+        void setMasterVolume(unsigned int mv);
 
-        bool updateUnit(unsigned int i, float masterVol, float vol);
-
-        bool playUnit(unsigned int i);
-        bool play();
+        bool isMute();
+        void setMute(bool mute);
 
         ~BARSoxTrack();
 };
