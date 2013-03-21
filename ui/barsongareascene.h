@@ -4,7 +4,8 @@
 #include <QGraphicsScene>
 #include <QVector>
 #include <QGraphicsRectItem>
-
+#include <QDropEvent>
+#include <QGraphicsSceneDragDropEvent>
 class BARSongAreaScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -17,6 +18,10 @@ public slots:
 
 private:
     QVector<QGraphicsRectItem*> stock;
+
+protected:
+    void dropEvent(QGraphicsSceneDragDropEvent *event);
+    void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
 };
 
 #endif // BARSONGAREASCENE_H

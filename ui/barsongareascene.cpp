@@ -1,5 +1,9 @@
 #include "barsongareascene.h"
 
+#include <QLabel>
+#include <QDebug>
+
+
 BARSongAreaScene::BARSongAreaScene(QObject *parent) :
     QGraphicsScene(parent)
 {
@@ -20,4 +24,19 @@ BARSongAreaScene::BARSongAreaScene(QObject *parent) :
                 stock.push_back(rectangle);
     }
 
+}
+
+void BARSongAreaScene::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+    qDebug()<<"DROOOOP"<<endl;
+    QLabel *newTest = new QLabel("bla");
+    newTest->move(event->pos().x(),event->pos().y());
+    newTest->show();
+}
+
+void BARSongAreaScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+{
+    event->setAccepted(true);
+    qDebug()<<"DRAG EN COUUUURS !"<<endl;
+    event->acceptProposedAction();
 }

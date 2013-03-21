@@ -64,7 +64,7 @@ void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
 
         QMimeData *mimeData = new QMimeData;
         mimeData->setData("application/x-dnditemdata", itemData);
-
+         mimeData->setText(childAt(event->pos())->accessibleName());
         QDrag *drag = new QDrag(this);
         drag->setMimeData(mimeData);
 
