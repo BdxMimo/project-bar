@@ -11,33 +11,15 @@ using namespace std;
 
 int main()
 {
-    vector<float> data(60);
-
-    for (int i=0; i<data.size(); i++) {
-        data[i] = i/2;
-        cout << data[i] << " ";
-    }
-    cout << endl;
-
-    BARSimpleResampler<float>::downsample(data, 44100, 22050, true);
-
-    for (int i=0; i<data.size(); i++) {
-        cout << data[i] << " ";
-    }
-    cout << endl;
-
-    return 0;
-
-    BARSoxPatternSoundSystem soundSys(120, 10, 2);
+    BARSoxPatternSoundSystem soundSys(120, 4, 4);
 
     assert(soundSys.addTrack("drum.wav") == 1);
     assert(soundSys.addTrack("snare.wav") == 2);
 
-    soundSys.preview(1);
-
-    for (int i=0; i<10; i++) {
-        soundSys.changeVolume(0,2*i,50);
-        soundSys.changeVolume(1,2*i+1,100);
+    for (int i=0; i<7; i++) {
+        soundSys.changeVolume(0,6*i,100);
+        soundSys.changeVolume(0,8*i+2,100);
+        soundSys.changeVolume(1,9*i+3,100);
     }
 
     soundSys.play();

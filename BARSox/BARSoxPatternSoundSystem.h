@@ -13,6 +13,7 @@
 #include <sox.h>
 #include "BARSoxPositionNode.h"
 #include "BARSoxTrack.h"
+#include "BARSimpleResampler.h"
 
 class BARSoxPatternSoundSystem
 {

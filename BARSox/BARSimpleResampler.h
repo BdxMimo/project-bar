@@ -21,7 +21,7 @@ class BARSimpleResampler
         static void upsample(std::vector<T>& vec, float currentRate, float desiredRate, bool stereo=false) {
             if (currentRate < desiredRate) {
                 unsigned int i=0, ja=0, jb=0, k=0, d=stereo ? 2 : 1;
-                T c=0;
+                //T c=0;
 
                 unsigned int vecSize = vec.size();
                 float rateRatio = desiredRate/currentRate;
@@ -38,7 +38,7 @@ class BARSimpleResampler
 
                 vec[0] = vec_orig[0];
                 if (stereo) {
-                    vec[1] = vec_orig[0];
+                    vec[1] = vec_orig[1];
                 }
 
                 for (i = d; i < vecSize; i+= d) {
@@ -50,15 +50,17 @@ class BARSimpleResampler
 
                     vec[jb] = vec_orig[i];
                     if (stereo) {
-                        vec[jb+1] = vec_orig[i];
+                        vec[jb+1] = vec_orig[i+1];
                     }
 
-                    c = d*(vec[jb] - vec[ja])/(jb - ja);
+                    //c = d*(vec[jb] - vec[ja])/(jb - ja);
 
                     for (k=ja+d; k<jb; k+=d) {
-                        vec[k] = vec[k-d] + c;
+                        //vec[k] = vec[k-d] + c;
+                        vec[k] = 0; //may look too simple but actually less noisy than linear interpolation
                         if (stereo) {
-                            vec[k+1] = vec[k];
+                            //vec[k+1] = vec[k-d+1] + c;
+                            vec[k+1] = 0;
                         }
                     }
                 }
@@ -84,7 +86,7 @@ class BARSimpleResampler
 
                 vec[0] = vec_orig[0];
                 if (stereo) {
-                    vec[1] = vec_orig[0];
+                    vec[1] = vec_orig[1];
                 }
 
                 for (j = d; j < vec.size(); j+= d) {
@@ -96,7 +98,7 @@ class BARSimpleResampler
                     vec[j] = vec_orig[i];
 
                     if (stereo) {
-                        vec[j+1] = vec[j];
+                        vec[j+1] = vec_orig[i+1];
                     }
                 }
 

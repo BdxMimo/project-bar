@@ -29,6 +29,7 @@ class BARSoxTrack
         std::vector< BARSoxNode<unsigned int>* > volumeTrees; /**< Volume trees per beat for the track. */
 
         bool mute; /**< @c true if mute track, @c false otherwise. */
+        sox_signalinfo_t properties;
 
     public:
         BARSoxTrack();
@@ -47,6 +48,8 @@ class BARSoxTrack
 
         bool isMute();
         void setMute(bool mute);
+
+        sox_signalinfo_t getProperties();
 
         ~BARSoxTrack();
 };

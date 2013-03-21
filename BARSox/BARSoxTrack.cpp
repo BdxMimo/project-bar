@@ -26,11 +26,10 @@ BARSoxTrack::BARSoxTrack(const char *filename, unsigned int nBeats, unsigned int
 
     sox_format_t* sound = sox_open_read(filename, NULL, NULL, NULL);
 
-    unsigned int chans = sound->signal.channels;
-    sox_rate_t rate = sound->signal.rate;
+    properties = sound->signal;
 
-    trackSoundBuffer.resize(sound->signal.length);
-    sox_read(sound, &trackSoundBuffer[0], sound->signal.length);
+    trackSoundBuffer.resize(properties.length);
+    sox_read(sound, &trackSoundBuffer[0], properties.length);
 
     volumeTrees.clear();
     for (unsigned int beat = 0; beat < nBeats; beat++) {
@@ -125,6 +124,11 @@ bool BARSoxTrack::isMute()
 void BARSoxTrack::setMute(bool mute)
 {
     BARSoxTrack::mute = mute;
+}
+
+sox_signalinfo_t BARSoxTrack::getProperties()
+{
+    return properties;
 }
 
 BARSoxTrack::~BARSoxTrack()

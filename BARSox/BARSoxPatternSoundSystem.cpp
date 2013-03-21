@@ -166,6 +166,7 @@ void BARSoxPatternSoundSystem::updateSoundBuffer()
     BARSoxPositionNode* posNode = NULL;
     sox_sample_t* position = NULL;
     vector<sox_sample_t> trackBuf;
+    sox_signalinfo_t trackProperties;
 
     float masterVolume = 0;
     float volume = 0;
@@ -183,10 +184,12 @@ void BARSoxPatternSoundSystem::updateSoundBuffer()
 
     for (i=0; i<tracks.size(); i++) {
         track = tracks[i];
+        trackProperties = track.getProperties();
         masterVolume = track.getMasterVolume();
 
         if (!track.isMute() && masterVolume > 0) {
             trackBuf = track.getTrackSoundBuffer();
+            BARSimpleResampler<sox_sample_t>::resample(trackBuf, trackProperties.rate, soundProperties.rate, true);
 
             for (beat=0; beat<nBeats; beat++) {
                 posNode = positionTrees[beat];
@@ -255,13 +258,11 @@ void BARSoxPatternSoundSystem::preview(unsigned int iTrack)
 {
     if (iTrack < tracks.size()) {
         vector<sox_sample_t> trackBuf = tracks[iTrack].getTrackSoundBuffer();
-        sox_signalinfo_t prevProperties;
+        sox_signalinfo_t prevProperties = tracks[iTrack].getProperties();
 
-        prevProperties.channels = soundProperties.channels;
+        BARSimpleResampler<sox_sample_t>::resample(trackBuf, prevProperties.rate, soundProperties.rate, prevProperties.channels == 2);
+
         prevProperties.rate = soundProperties.rate;
-        prevProperties.mult = soundProperties.mult;
-        prevProperties.precision = soundProperties.precision;
-
         prevProperties.length = trackBuf.size();
 
         sox_format_t* audioOutput = sox_open_write("default", &prevProperties, NULL, AUDIO_DRIVER, NULL, NULL);
