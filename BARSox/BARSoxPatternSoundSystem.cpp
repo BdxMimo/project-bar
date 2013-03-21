@@ -167,8 +167,12 @@ void BARSoxPatternSoundSystem::updateSoundBuffer()
     sox_sample_t* position = NULL;
     vector<sox_sample_t> trackBuf;
 
-    int masterVolume = 0;
-    int volume = 0;
+    float masterVolume = 0;
+    float volume = 0;
+
+    float sampleVol = 0;
+
+    float sample=0;
 
     unsigned int i = 0, j = 0, beat = 0, note = 0;
 
@@ -192,12 +196,21 @@ void BARSoxPatternSoundSystem::updateSoundBuffer()
                     volume = track.getVolumeAt(beat*notesPerBeat+note);
 
                     if (volume > 0) {
+                        sampleVol = (volume/100)*(masterVolume/100);
                         for(j=0; j<trackBuf.size() && position != &sndBuf.back(); j++) {
-                            if (trackBuf[j] != 0) {
-                                *position += masterVolume*(volume*trackBuf[j]/100)/100;
-                                position++;
+                            sample = sampleVol*trackBuf[j];
+                            if (sample > 0) {
+                                if (*position <= (sox_sample_t)(INT_MAX - sample))
+                                    *position += sample;
+                                else
+                                    *position = INT_MAX;
+                            } else {
+                                if (*position >= (sox_sample_t)(INT_MIN - sampleVol*trackBuf[j]))
+                                    *position += sample;
+                                else
+                                    *position = INT_MIN;
                             }
-
+                            position++;
                         }
                     }
                 }
@@ -233,7 +246,7 @@ void BARSoxPatternSoundSystem::play()
                 sox_write(audioOutput, &sndBuf[i], MAX_SAMPLES);
             }
             //for the rest
-            sox_write(audioOutput, &sndBuf[i], i-imax);
+            sox_write(audioOutput, &sndBuf[i], ibegin+noteBufPos.len-i);
         }
     }
 }

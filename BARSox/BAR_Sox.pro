@@ -21,5 +21,6 @@ HEADERS += \
     BARSoxNode.h \
     BARSoxPositionNode.h \
     BARSoxBufferPos.h \
-    BARSoxPatternSoundSystem.h
+    BARSoxPatternSoundSystem.h \
+    BARSimpleResampler.h
 

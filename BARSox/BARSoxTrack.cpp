@@ -26,6 +26,9 @@ BARSoxTrack::BARSoxTrack(const char *filename, unsigned int nBeats, unsigned int
 
     sox_format_t* sound = sox_open_read(filename, NULL, NULL, NULL);
 
+    unsigned int chans = sound->signal.channels;
+    sox_rate_t rate = sound->signal.rate;
+
     trackSoundBuffer.resize(sound->signal.length);
     sox_read(sound, &trackSoundBuffer[0], sound->signal.length);
 
