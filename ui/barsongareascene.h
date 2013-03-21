@@ -18,6 +18,7 @@ public slots:
 
 private:
     QVector<QGraphicsRectItem*> stock;
+    int timeLineSize;
 
 protected:
     void dropEvent(QGraphicsSceneDragDropEvent *event);

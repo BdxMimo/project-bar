@@ -28,11 +28,13 @@ public:
     QString getFileName();
 
     QColor getBgColor();
+    int getPatternLength();
     
 private:
     Ui::BARPatternBar *ui;
     QString fileName;
     QColor bgColor;
+    int patternLength;
 /*
 protected:
     //void dragEnterEvent(QDragEnterEvent *event);

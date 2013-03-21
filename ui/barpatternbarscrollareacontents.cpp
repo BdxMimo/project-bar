@@ -60,6 +60,8 @@ void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
         QByteArray itemData;
         QDataStream dataStream(&itemData, QIODevice::WriteOnly);
         dataStream << pBar->getBgColor();
+        dataStream << pBar->getPatternLength();
+
 
         QMimeData *mimeData = new QMimeData;
         mimeData->setData("application/x-dnditemdata", itemData);

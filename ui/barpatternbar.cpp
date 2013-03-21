@@ -7,6 +7,7 @@ BARPatternBar::BARPatternBar(QWidget *parent, QString name, QColor color) :
     ui(new Ui::BARPatternBar)
 {
     ui->setupUi(this);
+    patternLength=1;
 
     setAcceptDrops(true);
 
@@ -33,6 +34,11 @@ QString BARPatternBar::getFileName()
 QColor BARPatternBar::getBgColor()
 {
     return bgColor;
+}
+
+int BARPatternBar::getPatternLength()
+{
+    return patternLength;
 }
 
 /*
