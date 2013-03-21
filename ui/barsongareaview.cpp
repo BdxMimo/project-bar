@@ -5,4 +5,5 @@ BARSongAreaView::BARSongAreaView(QWidget *parent) :
 {
     scene= new BARSongAreaScene();
     this->setScene(scene);
+    setAcceptDrops(true);
 }

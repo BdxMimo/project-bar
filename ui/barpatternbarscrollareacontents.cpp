@@ -51,10 +51,11 @@ void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
 
     QLabel *child= static_cast<QLabel*>(childAt(event->pos()));
     if (!child)
-    {qDebug() <<"blatte"<<endl;
+    {qDebug() <<childAt(event->pos())->accessibleName()<<endl;
         return;}
     else
-    {qDebug() <<"objet"<<endl;}
+    {qDebug() <<"objet"<<endl;
+    qDebug() <<childAt(event->pos())->accessibleName()<<endl;}
       //  QPixmap pixmap = *child->pixmap();
 
         QByteArray itemData;
@@ -63,7 +64,7 @@ void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
 
         QMimeData *mimeData = new QMimeData;
         mimeData->setData("application/x-dnditemdata", itemData);
-
+         mimeData->setText(childAt(event->pos())->accessibleName());
         QDrag *drag = new QDrag(this);
         drag->setMimeData(mimeData);
 
