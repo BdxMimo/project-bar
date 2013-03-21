@@ -7,6 +7,7 @@
 #include <QVector>
 #include <QColor>
 #include <QGraphicsScene>
+#include "barexportdialog.h"
 
 
 
@@ -24,9 +25,14 @@ public:
     
 
 
+private slots:
+    void on_buttonExport_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::BARTabSong *ui;
-
+    BARExportDialog dialog;
 
 
 

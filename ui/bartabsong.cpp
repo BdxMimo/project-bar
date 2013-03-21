@@ -6,7 +6,8 @@
 
 BARTabSong::BARTabSong(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::BARTabSong)
+    ui(new Ui::BARTabSong),
+    dialog(this)
 {
     ui->setupUi(this);
 
@@ -19,3 +20,7 @@ BARTabSong::~BARTabSong()
 }
 
 
+void BARTabSong::on_buttonExport_clicked()
+{
+    dialog.show();
+}
