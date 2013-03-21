@@ -22,6 +22,7 @@ private:
 protected:
     void dropEvent(QGraphicsSceneDragDropEvent *event);
     void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
 };
 
 #endif // BARSONGAREASCENE_H

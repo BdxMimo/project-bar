@@ -2,6 +2,7 @@
 
 #include <QLabel>
 #include <QDebug>
+#include <QMimeData>
 
 
 BARSongAreaScene::BARSongAreaScene(QObject *parent) :
@@ -28,10 +29,25 @@ BARSongAreaScene::BARSongAreaScene(QObject *parent) :
 
 void BARSongAreaScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
-    qDebug()<<"DROOOOP"<<endl;
-    QLabel *newTest = new QLabel("bla");
-    newTest->move(event->pos().x(),event->pos().y());
-    newTest->show();
+    qDebug()<<"DROOOOP à "<<event->scenePos().x()<<" et à "<<event->scenePos().y()<<endl;
+
+
+    QColor currentColor;
+    QByteArray itemData= event->mimeData()->data("application/x-dnditemdata");
+    QDataStream droppedData(&itemData, QIODevice::ReadOnly);
+    droppedData>>currentColor;
+    QGraphicsRectItem *testdrop=new QGraphicsRectItem(event->scenePos().x(),0,100,60);
+    QBrush currentBrush(currentColor);
+    testdrop->setBrush(currentBrush);
+
+    //event->mimeData()->data()
+
+
+
+    addItem(testdrop);
+
+
+
 }
 
 void BARSongAreaScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
@@ -39,4 +55,9 @@ void BARSongAreaScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
     event->setAccepted(true);
     qDebug()<<"DRAG EN COUUUURS !"<<endl;
     event->acceptProposedAction();
+}
+
+void BARSongAreaScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    qDebug()<<"Ça bouuuuuge ! "<<event->scenePos().x()<<endl;
 }

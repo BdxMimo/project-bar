@@ -51,20 +51,20 @@ void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
 
     QLabel *child= static_cast<QLabel*>(childAt(event->pos()));
     if (!child)
-    {qDebug() <<childAt(event->pos())->accessibleName()<<endl;
+    {
         return;}
-    else
-    {qDebug() <<"objet"<<endl;
-    qDebug() <<childAt(event->pos())->accessibleName()<<endl;}
+
       //  QPixmap pixmap = *child->pixmap();
+        BARPatternBar *pBar = static_cast<BARPatternBar*>(childAt(event->pos()));
 
         QByteArray itemData;
         QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-        dataStream << QPoint(event->pos() - child->pos());
+        dataStream << pBar->getBgColor();
 
         QMimeData *mimeData = new QMimeData;
         mimeData->setData("application/x-dnditemdata", itemData);
-         mimeData->setText(childAt(event->pos())->accessibleName());
+        mimeData->setText(childAt(event->pos())->accessibleName());
+
         QDrag *drag = new QDrag(this);
         drag->setMimeData(mimeData);
 
@@ -81,3 +81,4 @@ void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
 
         }
 }
+

@@ -29,3 +29,46 @@ QString BARPatternBar::getFileName()
 {
     return fileName;
 }
+
+QColor BARPatternBar::getBgColor()
+{
+    return bgColor;
+}
+
+/*
+void BARPatternBar::mousePressEvent(QMouseEvent *event)
+{
+    int x=event->pos().x();
+
+
+    if (!child)
+    {qDebug() <<fileName<<endl;
+        return;}
+    else
+    {qDebug() <<childAt(event->pos())->whatsThis()<<endl;
+
+    }
+
+qDebug() <<fileName<<endl;
+        QByteArray itemData;
+        QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+        dataStream << QPoint(event->pos());
+
+        QMimeData *mimeData = new QMimeData;
+        mimeData->setData("application/x-dnditemdata", itemData);
+        mimeData->setText(fileName);
+
+        QDrag *drag = new QDrag(this);
+        drag->setMimeData(mimeData);
+
+        drag->setHotSpot(event->pos());
+
+
+
+
+
+
+
+
+}
+*/
