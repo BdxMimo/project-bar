@@ -51,48 +51,45 @@ void BARPatternBarScrollAreaContents::on_buttonAddPatternBar_clicked()
     QFileInfo fi(path); /**< retrieve the entire path to the selected file. */
     QString name=fi.baseName(); /**< extracts the name of the file from the entire path. */
 
-    if(name!="")
+    if(name!="") /**< prevents the creation of a bar associated to no pattern, in case the user closes dialog box without selecting any file. */
     {
-        BARPatternBar *newBarPatternBar=new BARPatternBar(this,name,patternBarColorList[nbPatternCreated % 5]);
-        ui->patternBarArea->addWidget(newBarPatternBar);
-        nbPatternCreated+=1;
+        BARPatternBar *newBarPatternBar=new BARPatternBar(this,name,patternBarColorList[nbPatternCreated % 5]); /**< the color of the new bar is selected in the list of possible colors. Modulo allows to create more bars than the number of possible colors. */
+        ui->patternBarArea->addWidget(newBarPatternBar); /**< the new bar is added to the layout in last position. */
+        nbPatternCreated+=1; /**< counter of number of pattern bars stored in the layout is updated. */
     }
 }
 
+/**
+ * @brief Slot triggers drag-and-drop.
+ * The user start draging the pattern he wants to add to the timeline.
+ * @param[in] mouse pressed event.
+ */
 void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
 {
-    int x=event->pos().x();
+    int x=event->pos().x(); /**< retrieves the position of the cursor. */
 
-    QLabel *child= static_cast<QLabel*>(childAt(event->pos()));
-    if (!child)
-    {
-        return;}
+    BARPatternBar *pBar = static_cast<BARPatternBar*>(childAt(event->pos())); /**< childAt returns a pointer to the child that was clicked. This pointer, of type "widget", is then converted into a BARPatternBar type. */
+    if (!pBar){return;} /**< checks that the object created isn't empty (NULL). */
 
-        BARPatternBar *pBar = static_cast<BARPatternBar*>(childAt(event->pos()));
+    QSize patternSize(100,60); /**< the following lines created a pixmap that will be displayed on the cursor during drag-and-drop. */
+    QPixmap pixmap(patternSize);
+    pixmap.fill(pBar->getBgColor());
 
-        QSize patternSize(100,60);
-        QPixmap pixmap(patternSize);
-        pixmap.fill(pBar->getBgColor());
+    QByteArray itemData; /**< the following lines pack up the data to be sent through the drag-and-drop. */
+    QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+    dataStream << pBar->getBgColor(); /**< stores the color of the bar being dragged. */
+    dataStream << pBar->getPatternLength(); /**< stores the duration of the pattern associated to the bar being dragged. */
 
-        QByteArray itemData;
-        QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-        dataStream << pBar->getBgColor();
-        dataStream << pBar->getPatternLength();
+    QMimeData *mimeData = new QMimeData;
+    mimeData->setData("application/x-dnditemdata", itemData); /**< store the data we prepared into the QMimeFile. */
+    mimeData->setText(childAt(event->pos())->accessibleName()); /**< store the name of the pattern associated to the bar being dragged. */
 
+    QDrag *drag = new QDrag(this); /**< crates the QDrag object. */
+    drag->setMimeData(mimeData); /**< stores the data we packed up into the drag object. */
+    drag->setPixmap(pixmap); /**< sets the image to be displayed on the cursor during the drag-and-drop. */
 
-        QMimeData *mimeData = new QMimeData;
-        mimeData->setData("application/x-dnditemdata", itemData);
-        mimeData->setText(childAt(event->pos())->accessibleName());
+    drag->setHotSpot(event->pos() - child->pos()); /**< actually displays the pixmap on the cursor during drag-and-drop. */
 
-        QDrag *drag = new QDrag(this);
-        drag->setMimeData(mimeData);
-        drag->setPixmap(pixmap);
-
-        drag->setHotSpot(event->pos() - child->pos());
-
-        if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction)
-            child->close();
-        else {
-            child->show();
-        }
+    if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction){child->close()}; /**< lines found on the Internet... */
+    else {child->show();}
 }
