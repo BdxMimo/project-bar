@@ -12,6 +12,9 @@
 *.la
 *.a
 
+#UI Autosaves
+*.ui.autosave
+
 # user QtCreator project files
 *.pro.user
 

@@ -27,7 +27,7 @@ public:
 private:
     Ui::BARGauge *ui;
     QColor offColor,onColor,playingColor; /**< variables that control the color of the gauge : transparent when not clicked, colored when clicked. */
-    float volume; /**< value of the volume at which the sound has to be played (proportional to the height of the colored part of the gauge. */
+    unsigned int volume; /**< value of the volume at which the sound has to be played (proportional to the height of the colored part of the gauge. */
 };
 
 #endif // BARGAUGE_H

@@ -44,20 +44,10 @@ BARGauge::~BARGauge()
  */
 void BARGauge::mousePressEvent(QMouseEvent *event)
 {
-    volume=1-volume; /**< Reverses the volume of the gauge to activate/inactivate it. Temporary implementation for the test, where volume is 0 or 1. */
+    volume=100-volume; /**< Reverses the volume of the gauge to activate/inactivate it. Temporary implementation for the test, where volume is 0 or 1. */
 
-    if(volume==0) /**< Sets the color of the gauge corresponding to the inactive state. */
-    {
-        QPalette palette = this->palette();
-        palette.setColor(QPalette::Background,offColor);
-        this->setAutoFillBackground(true);
-        this->setPalette(palette);
-    }
-    else /**< Sets the color of the gauge corresponding to active state. */
-    {
-        QPalette palette = this->palette();
-        palette.setColor(QPalette::Background,onColor);
-        this->setAutoFillBackground(true);
-        this->setPalette(palette);
-    }
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Background,volume == 0 ? offColor : onColor);
+    this->setAutoFillBackground(true);
+    this->setPalette(palette);
 }
