@@ -4,7 +4,7 @@
 /**
  * @brief Creates the pattern bar in the "song" tab.
  * Each bar is associated to one pattern.
- * A new bar is added in the left column of "barsongarea", under the last pattern bar, when clicking the "+" button under it.
+ * A new bar is added in the left column of "barpatternbarscrollarea", under the last pattern bar, when clicking the "+" button under it.
  */
 
 /**
