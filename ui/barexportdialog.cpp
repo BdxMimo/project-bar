@@ -6,6 +6,11 @@
 #include <QTextEdit>
 #include <QCloseEvent>
 
+/**
+ * @brief This class allows the final export of the song (conversion into standard audio format).
+ *
+ * When clicking the export button in the "song" tab, dialog pops up to set parameters for exportation of the song.
+ */
 BARExportDialog::BARExportDialog(QWidget *parent, Qt::WindowFlags f) :
     QDialog(parent,f),
     ui(new Ui::barexportdialog)
