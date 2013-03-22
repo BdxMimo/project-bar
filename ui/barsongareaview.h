@@ -4,19 +4,19 @@
 #include <QGraphicsView>
 #include "barsongareascene.h"
 
+/**
+ * @brief Display BARSongAreaScene.
+ * BARSongAreaScene is the model of the timeline. This class displays it.
+ */
+
 class BARSongAreaView : public QGraphicsView
 {
     Q_OBJECT
 public:
     explicit BARSongAreaView(QWidget *parent = 0);
-    
-signals:
-    
-public slots:
 
 private:
-    BARSongAreaScene *scene;
-
+    BARSongAreaScene *scene; /**< scene of the timeline. */
 };
 
 #endif // BARSONGAREAVIEW_H
