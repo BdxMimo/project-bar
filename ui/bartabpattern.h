@@ -3,6 +3,10 @@
 
 #include <QWidget>
 
+/**
+ * @brief Implements the interface in the "pattern" tab.
+ */
+
 namespace Ui {
 class BARtabPattern;
 }
