@@ -7,6 +7,7 @@
 /**
  * @brief Displays the list of pattern bars on the left, and the timeline on the right.
  * Is displayed in the song tab of the main window.
+ * All interesting data is in the ui file.
  */
 
 namespace Ui {
@@ -23,8 +24,6 @@ public:
 
 private:
     Ui::BARSongArea *ui;
-    // QVector<QColor> patternBarColorList;
-    // int nbPatternCreated;
 };
 
 #endif // BARSONGAREA_H

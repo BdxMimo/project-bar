@@ -7,6 +7,10 @@
  * Is displayed in the song tab of the main window.
  */
 
+/**
+ * @brief Default constructor.
+ * @param parent widget.
+ */
 BARSongArea::BARSongArea(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::BARSongArea)
@@ -14,9 +18,10 @@ BARSongArea::BARSongArea(QWidget *parent) :
     ui->setupUi(this);
 }
 
+/**
+ * @brief Default destructor.
+ */
 BARSongArea::~BARSongArea()
 {
     delete ui;
 }
-
-
