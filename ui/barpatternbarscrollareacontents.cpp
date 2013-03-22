@@ -88,8 +88,8 @@ void BARPatternBarScrollAreaContents::mousePressEvent(QMouseEvent *event)
     drag->setMimeData(mimeData); /**< stores the data we packed up into the drag object. */
     drag->setPixmap(pixmap); /**< sets the image to be displayed on the cursor during the drag-and-drop. */
 
-    drag->setHotSpot(event->pos() - child->pos()); /**< actually displays the pixmap on the cursor during drag-and-drop. */
+    drag->setHotSpot(event->pos() - pBar->pos()); /**< actually displays the pixmap on the cursor during drag-and-drop. */
 
-    if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction){child->close()}; /**< lines found on the Internet... */
-    else {child->show();}
+    if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction){pBar->close();} /**< lines found on the Internet... */
+    else {pBar->show();}
 }
