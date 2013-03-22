@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>images/arrow_rotate_clockwise.png</file>
+        <file>images/arrow-right.png</file>
+        <file>images/control_play_blue.png</file>
+        <file>images/cross.png</file>
+        <file>images/folder_add.png</file>
+    </qresource>
+</RCC>

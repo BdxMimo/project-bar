@@ -25,7 +25,7 @@ BARPatternBar::BARPatternBar(QWidget *parent, QString name, QColor color) :
     fileName=name; /**< sets the name of the pattern associated to the bar. */
     this->setAccessibleName(fileName); /**< modify the name by which Qt identifies the object to correspond to the name of the pattern associated to the bar. */
     ui->labelPatternName->setText(fileName); /** updates pattern name on the tag. */
-
+    ui->labelPatternName->setAcceptDrops(false);
     bgColor=color; /**< in the following lines, the color of the bar is set according to one given to the constructor. */
     QPalette palette = this->palette();
     palette.setColor(QPalette::Background,bgColor);

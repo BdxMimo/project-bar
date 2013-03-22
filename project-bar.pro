@@ -66,3 +66,6 @@ FORMS    += ui/barwindow.ui \
     ui/barsongarea.ui \
     ui/barpatternbarscrollareacontents.ui \
     ui/barexportdialog.ui
+
+RESOURCES += \
+    images.qrc
