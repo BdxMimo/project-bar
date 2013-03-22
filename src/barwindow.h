@@ -5,9 +5,9 @@
 
 /**
  * @brief Creates the main window.
- *
  * This window only contains a TabWidget with two tabs.
  */
+
 namespace Ui {
 class BARWindow;
 }

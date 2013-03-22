@@ -5,6 +5,12 @@
 #include <QColor>
 #include <QMouseEvent>
 
+/**
+ * @brief Implements the gauge played in the "pattern" tab.
+ * This gauge controls when a sound is played, and at which volume.
+ * A series of gauges is created in each soundbar, by the constructor of the class "barsoundbar".
+ */
+
 namespace Ui {
 class BARGauge;
 }
@@ -20,8 +26,8 @@ public:
     
 private:
     Ui::BARGauge *ui;
-    QColor offColor,onColor,playingColor;
-    float volume;
+    QColor offColor,onColor,playingColor; /**< variables that control the color of the gauge : transparent when not clicked, colored when clicked. */
+    float volume; /**< value of the volume at which the sound has to be played (proportional to the height of the colored part of the gauge. */
 };
 
 #endif // BARGAUGE_H

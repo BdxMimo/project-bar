@@ -9,9 +9,9 @@
 
 /**
  * @brief This class allows the final export of the song (conversion into standard audio format).
- *
  * When clicking the export button in the "song" tab, dialog pops up to set parameters for exportation of the song.
  */
+
 namespace Ui {
 class barexportdialog;
 }
@@ -34,11 +34,11 @@ private slots:
 
 private:
     Ui::barexportdialog *ui;
-    QPushButton* saveButton;
-    QPushButton* backButton;
-    QComboBox* fileTypeComboBox;
-    QString fileName;
-    QString fileType;
+    QPushButton* saveButton; /**< button that triggers the exportation procedure itself (creation of the file). */
+    QPushButton* backButton; /**< button to leave the dialog box and return to the main window. */
+    QComboBox* fileTypeComboBox; /**< list in which the user select the desired format to export the song. */
+    QString fileName; /**< desired name for the file (selected by the user). */
+    QString fileType; /**< stores the type of the file selected in the list by the user. */
 };
 
 #endif // BAREXPORTDIALOG_H

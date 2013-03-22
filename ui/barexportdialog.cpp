@@ -8,8 +8,13 @@
 
 /**
  * @brief This class allows the final export of the song (conversion into standard audio format).
- *
  * When clicking the export button in the "song" tab, dialog pops up to set parameters for exportation of the song.
+ */
+
+/**
+ * @brief Default constructor.
+ * @param[in] parent widget
+ * @param[in] window flag
  */
 BARExportDialog::BARExportDialog(QWidget *parent, Qt::WindowFlags f) :
     QDialog(parent,f),
@@ -19,6 +24,9 @@ BARExportDialog::BARExportDialog(QWidget *parent, Qt::WindowFlags f) :
     initialSetup();
 }
 
+/**
+ * @brief Default destructor.
+ */
 BARExportDialog::~BARExportDialog()
 {
     delete ui;
@@ -26,7 +34,7 @@ BARExportDialog::~BARExportDialog()
 
 /**
  * @brief Overrides the standard QCloseEvent function and uses this one instead.
- * @param the CloseEvent event
+ * @param[in] the CloseEvent event
  */
 void BARExportDialog::closeEvent(QCloseEvent *event)
 {
@@ -52,7 +60,7 @@ void BARExportDialog::initialSetup()
 
 /**
  * @brief Enables or disables the save button according to the appropriateness of the text in the lineEdit field.
- * @param the text entered in the lineEdit.
+ * @param[in] the text entered in the lineEdit.
  */
 void BARExportDialog::textChangedSlot(QString text)
 {
