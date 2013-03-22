@@ -5,6 +5,7 @@
 
 /**
  * @brief Implements the interface in the "pattern" tab.
+ * Allows the manipulation of the sound bars.
  */
 
 namespace Ui {
