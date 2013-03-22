@@ -1,11 +1,7 @@
 #ifndef BARSOXSOUND_H
 #define BARSOXSOUND_H
 
-#ifndef AUDIO_DRIVER
-    #define AUDIO_DRIVER    "waveaudio"
-#endif
-
-#define MAX_SAMPLES     1024
+#include "BARDefines.h"
 
 #include <sox.h>
 

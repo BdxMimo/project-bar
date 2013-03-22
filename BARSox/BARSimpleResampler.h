@@ -20,7 +20,8 @@ class BARSimpleResampler
 
         static void upsample(std::vector<T>& vec, float currentRate, float desiredRate, bool stereo=false) {
             if (currentRate < desiredRate) {
-                unsigned int i=0, ja=0, jb=0, k=0, d=stereo ? 2 : 1;
+                unsigned int i=0, jb=0, d=stereo ? 2 : 1;
+                //unsigned int ja=0, k=0;
                 //T c=0;
 
                 unsigned int vecSize = vec.size();
@@ -42,7 +43,7 @@ class BARSimpleResampler
                 }
 
                 for (i = d; i < vecSize; i+= d) {
-                    ja = jb;
+                    //ja = jb;
                     jb = i*rateRatio;
                     if (stereo) {
                         jb -= jb%d;
@@ -55,14 +56,14 @@ class BARSimpleResampler
 
                     //c = d*(vec[jb] - vec[ja])/(jb - ja);
 
-                    for (k=ja+d; k<jb; k+=d) {
+                    //It looks too simple to insert zeros but it is less noisy than using linear interpolation.
+
+                    /*for (k=ja+d; k<jb; k+=d) {
                         //vec[k] = vec[k-d] + c;
-                        vec[k] = 0; //may look too simple but actually less noisy than linear interpolation
                         if (stereo) {
                             //vec[k+1] = vec[k-d+1] + c;
-                            vec[k+1] = 0;
                         }
-                    }
+                    }*/
                 }
             }
         }

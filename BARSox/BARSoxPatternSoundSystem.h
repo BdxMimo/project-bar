@@ -1,13 +1,7 @@
 #ifndef BARSOXPATTERNSOUNDSYSTEM_H
 #define BARSOXPATTERNSOUNDSYSTEM_H
 
-#ifndef AUDIO_DRIVER
-    #define AUDIO_DRIVER    "waveaudio"
-#endif
-
-#ifndef MAX_SAMPLES
-    #define MAX_SAMPLES     2048
-#endif
+#include "BARDefines.h"
 
 #include <vector>
 #include <sox.h>
@@ -51,7 +45,7 @@ class BARSoxPatternSoundSystem
         void changeMute(unsigned int iTrack, bool mute);
 
         void updateSoundBuffer();
-        void play();
+        void play(unsigned int loops=1);
 
         void preview(unsigned int iTrack);
 };

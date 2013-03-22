@@ -6,9 +6,7 @@
 #include <sox.h>
 #include <vector>
 
-#ifndef AUDIO_DRIVER
-    #define AUDIO_DRIVER    "waveaudio"
-#endif
+#include "BARDefines.h"
 
 /**
  * @brief The BARSoxTrack class handles data for one track.
