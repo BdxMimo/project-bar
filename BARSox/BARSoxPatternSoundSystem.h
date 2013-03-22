@@ -48,6 +48,8 @@ class BARSoxPatternSoundSystem
         void play(unsigned int loops=1);
 
         void preview(unsigned int iTrack);
+
+        ~BARSoxPatternSoundSystem();
 };
 
 #endif // BARSOXPATTERNSOUNDSYSTEM_H

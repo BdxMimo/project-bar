@@ -13,8 +13,6 @@
  * A track contains only one kind of sound, repeated along beats.
  * @author Hugo Duprat [<a href="mailto:hugo.duprat@gmail.com">Contact</a>]
  * @date 3/08/2013
- *
- * @todo See if it would be useful to create an instance counter.
  */
 class BARSoxTrack
 {

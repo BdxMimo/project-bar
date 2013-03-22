@@ -4,6 +4,8 @@ using namespace std;
 
 BARSoxPatternSoundSystem::BARSoxPatternSoundSystem()
 {
+    sox_init();
+
     tempo = 60;
     nBeats = 4;
     notesPerBeat = 2;
@@ -277,4 +279,14 @@ void BARSoxPatternSoundSystem::preview(unsigned int iTrack)
         sox_write(audioOutput, &trackBuf[i], prevProperties.length-i);
         sox_close(audioOutput);
     }
+}
+
+BARSoxPatternSoundSystem::~BARSoxPatternSoundSystem()
+{
+    for (int i = 0; i < positionTrees.size(); i++) {
+        delete positionTrees.back();
+        positionTrees.pop_back();
+    }
+
+    sox_quit();
 }

@@ -133,5 +133,8 @@ sox_signalinfo_t BARSoxTrack::getProperties()
 
 BARSoxTrack::~BARSoxTrack()
 {
-
+    for (int i = 0; i < volumeTrees.size(); i++) {
+        delete volumeTrees.back();
+        volumeTrees.pop_back();
+    }
 }
