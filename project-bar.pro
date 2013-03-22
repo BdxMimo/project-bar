@@ -23,11 +23,7 @@ SOURCES += src/main.cpp\
     ui/barpatternbarscrollareacontents.cpp \
     ui/barsongareaview.cpp \
     ui/barsongareascene.cpp \
-    ui/barexportdialog.cpp \
-    BARSox/BARSoxTrack.cpp \
-    BARSox/BARSoxBufferPos.cpp \
-    BARSox/BARSoxPatternSoundSystem.cpp
-
+    ui/barexportdialog.cpp
 
 
 HEADERS  += src/barwindow.h \
@@ -41,14 +37,24 @@ HEADERS  += src/barwindow.h \
     ui/barpatternbarscrollareacontents.h \
     ui/barsongareaview.h \
     ui/barsongareascene.h \
-    ui/barexportdialog.h \
-    BARSox/BARSoxTrack.h \
+    ui/barexportdialog.h
+
+win32 {
+SOURCES += BARSox/BARSoxTrack.cpp \
+    BARSox/BARSoxBufferPos.cpp \
+    BARSox/BARSoxPatternSoundSystem.cpp
+
+HEADERS += BARSox/BARSoxTrack.h \
     BARSox/BARSoxNode.h \
     BARSox/BARSoxPositionNode.h \
     BARSox/BARSoxBufferPos.h \
     BARSox/BARSoxPatternSoundSystem.h \
     BARSox/BARSimpleResampler.h \
     BARSox/BARDefines.h
+
+LIBS += -LC:/Sox/sox-14.4.1rc3/src/.libs -llibsox
+INCLUDEPATH += C:/Sox/sox-14.4.1rc3/src/
+}
 
 FORMS    += ui/barwindow.ui \
     ui/barsoundbar.ui \
@@ -60,6 +66,3 @@ FORMS    += ui/barwindow.ui \
     ui/barsongarea.ui \
     ui/barpatternbarscrollareacontents.ui \
     ui/barexportdialog.ui
-
-LIBS += -LC:/Sox/sox-14.4.1rc3/src/.libs -llibsox
-INCLUDEPATH += C:/Sox/sox-14.4.1rc3/src/
