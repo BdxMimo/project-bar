@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QVBoxLayout" name="patternBarArea"/>
+    <layout class="QGridLayout" name="patternBarArea"/>
    </item>
    <item>
     <widget class="QPushButton" name="buttonAddPatternBar">

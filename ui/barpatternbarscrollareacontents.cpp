@@ -9,6 +9,7 @@
 #include <QDrag>
 #include <QPainter>
 #include <QDebug>
+#include <math.h>
 
 /**
  * @brief Contains the list of the pattern bars.
@@ -54,7 +55,8 @@ void BARPatternBarScrollAreaContents::on_buttonAddPatternBar_clicked()
     if(name!="") /**< prevents the creation of a bar associated to no pattern, in case the user closes dialog box without selecting any file. */
     {
         BARPatternBar *newBarPatternBar=new BARPatternBar(this,name,patternBarColorList[nbPatternCreated % 5]); /**< the color of the new bar is selected in the list of possible colors. Modulo allows to create more bars than the number of possible colors. */
-        ui->patternBarArea->addWidget(newBarPatternBar); /**< the new bar is added to the layout in last position. */
+
+        ui->patternBarArea->addWidget(newBarPatternBar,floor(nbPatternCreated/3),nbPatternCreated % 3); /**< the new bar is added to the layout in last position. */
         nbPatternCreated+=1; /**< counter of number of pattern bars stored in the layout is updated. */
     }
 }
