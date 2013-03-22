@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Rölig Tone - Dellandrebox</string>
+   <string>Project BAR</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
