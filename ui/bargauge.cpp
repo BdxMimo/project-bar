@@ -23,11 +23,11 @@ BARGauge::BARGauge(QWidget *parent) :
     onColor=QColor(0,0,255,127); /**< define the color of the gauge when active (clicked). */
 
     QPalette palette = this->palette();
-    palette.setColor(QPalette::Background,offColor); /**< gauge is iniated as inactive : the corresponding color is set upon creation of the gauge. *//
+    palette.setColor(QPalette::Background,offColor); /**< gauge is iniated as inactive : the corresponding color is set upon creation of the gauge. */
     this->setAutoFillBackground(true);
     this->setPalette(palette);
 
-    this->setFixedSize(20,50); /**< size of the gauge is fixed to make sure it is always visible and clickable. *//
+    this->setFixedSize(20,50); /**< size of the gauge is fixed to make sure it is always visible and clickable. */
 }
 
 /**
