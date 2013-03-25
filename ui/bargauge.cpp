@@ -2,6 +2,10 @@
 #include "ui_bargauge.h"
 #include <QPalette>
 
+QColor BARGauge::offColor = QColor(255,255,255,200);
+QColor BARGauge::onColor = QColor::fromHsl(225,200,180);
+QColor BARGauge::playingColor = QColor::fromHsl(105,200,180);
+
 /**
  * @brief Implements the gauge played in the "pattern" tab.
  * This gauge controls when a sound is played, and at which volume.
@@ -19,8 +23,6 @@ BARGauge::BARGauge(unsigned int i, QWidget *parent) :
     ui->setupUi(this);
 
     volume=0; /**< gauge volume is iniated as inactive : thus volume value is 0. */
-    offColor=QColor(255,255,255,200); /**< define the color of the gauge when inactive (clicked). */
-    onColor=QColor(0,0,255,127); /**< define the color of the gauge when active (clicked). */
     iNote = i;
 
     QPalette palette = this->palette();
@@ -53,4 +55,26 @@ void BARGauge::mousePressEvent(QMouseEvent *event)
     this->setPalette(palette);
 
     emit valueChanged(volume, iNote);
+}
+
+void BARGauge::activatePlaying()
+{
+    if (volume > 0) {
+        QPalette palette = this->palette();
+        palette.setColor(QPalette::Background, playingColor);
+        this->setAutoFillBackground(true);
+        this->setPalette(palette);
+        this->repaint();
+    }
+}
+
+void BARGauge::deactivatePlaying()
+{
+    if (volume > 0) {
+        QPalette palette = this->palette();
+        palette.setColor(QPalette::Background, onColor);
+        this->setAutoFillBackground(true);
+        this->setPalette(palette);
+        this->repaint();
+    }
 }

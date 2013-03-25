@@ -31,6 +31,7 @@ signals:
     void volumeChanged(unsigned int iTrack, unsigned int iNote, unsigned int volume);
     void tempoChanged(unsigned int tempo);
     void wantPlay();
+    void wantNextNote(unsigned int iNote);
     
 private slots:
     void on_buttonAddSoundBar_clicked();
@@ -39,6 +40,7 @@ private slots:
     void trackPreview(unsigned int iTrack);
     void changeVolume(unsigned int iTrack, unsigned int iNote, unsigned int volume);
     void changeTempo(int tempo);
+    void playNote(unsigned int iNote);
 
 private:
     Ui::BARtabPattern *ui;

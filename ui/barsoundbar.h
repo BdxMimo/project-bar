@@ -5,6 +5,8 @@
 #include <QVector>
 #include <QString>
 
+#include "bargauge.h"
+
 /**
  * @brief Creates a soundbar in the tab "pattern".
  *
@@ -35,6 +37,7 @@ public slots:
     void on_buttonSoundDelete_2_clicked();
     void on_buttonSoundPlay_2_clicked();
     void onGaugeValueChanged(unsigned int value, unsigned int iNote);
+    void playNote(unsigned int iNote);
 
 signals:
     void valueChanged(unsigned int iTrack, unsigned int iNote, unsigned int value);
@@ -42,10 +45,10 @@ signals:
     void wantPreview(unsigned int iTrack);
 
 private:
-    QVector<bool> rhythm; /**< Vector that contains the values of the soundgauges. */
+    QVector<BARGauge*> gauges; /**< Vector that contains the values of the soundgauges. */
     Ui::BARSoundBar *ui;
     QString fileName; /**< Name of the sound associated to the soundbar. */
-    int gaugeNumber; /**< Number of soundgauges the will be created on the right of the tag displaying the name of the file. */
+    int nGauges; /**< Number of soundgauges the will be created on the right of the tag displaying the name of the file. */
     unsigned int iTrack;
 };
 

@@ -27,6 +27,7 @@ class BARSoxPatternSoundSystem : public QObject
         unsigned int beatLen;
 
         sox_signalinfo_t soundProperties;
+        sox_format_t* audioOutput;
 
         bool changed;
 
@@ -43,11 +44,16 @@ class BARSoxPatternSoundSystem : public QObject
 
         ~BARSoxPatternSoundSystem();
 
+    signals:
+        void endOfNoteDetected(unsigned int iNote);
+
     public slots:
         unsigned int addTrack(const char* filename);
         unsigned int deleteTrack(unsigned int i);
 
         void changeVolume(unsigned int iTrack, unsigned int iNote, unsigned int v);
+
+        void playNote(unsigned int iNote=0);
 
         void play(unsigned int loops=1);
         void preview(unsigned int iTrack);

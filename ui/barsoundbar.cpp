@@ -28,13 +28,14 @@ BARSoundBar::BARSoundBar(unsigned int i, QWidget *parent, QString name) :
     ui->setupUi(this);
     fileName=name;
     ui->labelSoundName_2->setText(fileName); /**< Initialize tag to display the name of the sound associated to the soundbar. */
-    gaugeNumber=16;
+    nGauges=16;
     iTrack = i;
-    for(unsigned int j=0;j<gaugeNumber;j++) /**< Create gaugeNumber soundgauges placed on the right of the soundbar. */
+    for(unsigned int j=0;j<nGauges;j++) /**< Create gaugeNumber soundgauges placed on the right of the soundbar. */
     {
-        BARGauge *newBarGauge = new BARGauge(j, this);
-        connect(newBarGauge, SIGNAL(valueChanged(uint,uint)), this, SLOT(onGaugeValueChanged(uint,uint)));
-        ui->horizontalLayout->addWidget(newBarGauge);
+        BARGauge *newGauge = new BARGauge(j, this);
+        connect(newGauge, SIGNAL(valueChanged(uint,uint)), this, SLOT(onGaugeValueChanged(uint,uint)));
+        ui->horizontalLayout->addWidget(newGauge);
+        gauges.push_back(newGauge);
     }
 }
 
@@ -52,7 +53,7 @@ BARSoundBar::~BARSoundBar()
  */
 void BARSoundBar::on_buttonSoundImport_2_clicked()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("Open File"), tr("Files(*.*)")); /**< Opens dialog box and retrieves file path. */
+    QString path = QFileDialog::getOpenFileName(this, tr("Open File"), tr("Files(*.wav)")); /**< Opens dialog box and retrieves file path. */
     QFileInfo fi(path);
     fileName=fi.baseName(); /**< Extracts the name of the file from the path. */
     ui->labelSoundName_2->setText(fileName); /**< Changes the name of the sound associated to the soundbar. */
@@ -75,6 +76,16 @@ void BARSoundBar::on_buttonSoundPlay_2_clicked()
 void BARSoundBar::onGaugeValueChanged(unsigned int value, unsigned int iNote)
 {
     emit valueChanged(iTrack, iNote, value);
+}
+
+void BARSoundBar::playNote(unsigned int iNote)
+{
+    if (iNote != nGauges) {
+        gauges[iNote]->activatePlaying();
+    }
+    if (iNote != 0) {
+        gauges[iNote-1]->deactivatePlaying();
+    }
 }
 
 /**

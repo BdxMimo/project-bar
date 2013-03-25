@@ -27,7 +27,9 @@ BARtabPattern::BARtabPattern(QWidget *parent) :
     connect(this, SIGNAL(trackDeleted(uint)), soundSystem, SLOT(deleteTrack(uint)));
     connect(this, SIGNAL(volumeChanged(uint,uint,uint)), soundSystem, SLOT(changeVolume(uint,uint,uint)));
     connect(this, SIGNAL(wantPreview(uint)), soundSystem, SLOT(preview(uint)));
-    connect(this, SIGNAL(wantPlay()), soundSystem, SLOT(play()));
+    connect(this, SIGNAL(wantPlay()), soundSystem, SLOT(playNote()));
+    connect(this, SIGNAL(wantNextNote(uint)), soundSystem, SLOT(playNote(uint)));
+    connect(soundSystem, SIGNAL(endOfNoteDetected(uint)), this, SLOT(playNote(uint)));
 }
 
 /**
@@ -79,6 +81,10 @@ void BARtabPattern::changeTempo(int tempo)
 
 void BARtabPattern::on_buttonPlay_clicked()
 {
+    for (unsigned int i=0; i < nTracks; i++) {
+        soundBars[i]->playNote(0);
+    }
+
     emit wantPlay();
 }
 
@@ -92,4 +98,12 @@ void BARtabPattern::deleteTrack(unsigned int i)
     nTracks--;
 
     emit trackDeleted(i);
+}
+
+void BARtabPattern::playNote(unsigned int iNote)
+{
+    for (unsigned int i=0; i < nTracks; i++) {
+        soundBars[i]->playNote(iNote+1);
+    }
+    emit wantNextNote(iNote+1);
 }

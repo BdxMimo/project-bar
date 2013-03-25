@@ -21,6 +21,8 @@ BARSoxPatternSoundSystem::BARSoxPatternSoundSystem()
     soundProperties.precision = 0;
     soundProperties.mult = NULL;
 
+    audioOutput = sox_open_write("default", &soundProperties, NULL, AUDIO_DRIVER, NULL, NULL);
+
     updatePositionTrees();
 
     tracks.clear();
@@ -42,6 +44,8 @@ BARSoxPatternSoundSystem::BARSoxPatternSoundSystem(unsigned int tempo, unsigned 
     soundProperties.length = beatLen*nBeats;    //number of samples in the sound buffer
     soundProperties.precision = 0;
     soundProperties.mult = NULL;
+
+    audioOutput = sox_open_write("default", &soundProperties, NULL, AUDIO_DRIVER, NULL, NULL);
 
     updatePositionTrees();
 
@@ -224,6 +228,35 @@ void BARSoxPatternSoundSystem::updateSoundBuffer()
     }
 }
 
+void BARSoxPatternSoundSystem::playNote(unsigned int iNote)
+{
+    if (changed) {
+        updateSoundBuffer();
+        changed = false;
+    }
+
+    if (iNote < notesPerBeat*nBeats) {
+
+        BARSoxPositionNode* beatNode;
+        BARSoxBufferPos noteBufPos;
+
+        sox_uint64_t i = 0, imax = 0, ibegin = 0;
+
+        beatNode = positionTrees[iNote/notesPerBeat];
+        noteBufPos = beatNode->getAt(iNote%notesPerBeat);
+
+        ibegin = noteBufPos.pos-&sndBuf[0];
+        imax = ibegin+noteBufPos.len - MAX_SAMPLES;
+
+        for (i=ibegin; i<imax; i+=MAX_SAMPLES) {
+            sox_write(audioOutput, &sndBuf[i], MAX_SAMPLES);
+        }
+        //for the rest
+        sox_write(audioOutput, &sndBuf[i], ibegin+noteBufPos.len-i);
+        emit endOfNoteDetected(iNote);
+    }
+}
+
 void BARSoxPatternSoundSystem::play(unsigned int loops)
 {
     if (changed) {
@@ -231,7 +264,7 @@ void BARSoxPatternSoundSystem::play(unsigned int loops)
         changed = false;
     }
 
-    sox_format_t* audioOutput = sox_open_write("default", &soundProperties, NULL, AUDIO_DRIVER, NULL, NULL);
+    audioOutput = sox_open_write("default", &soundProperties, NULL, AUDIO_DRIVER, NULL, NULL);
 
     BARSoxPositionNode* beatNode;
     BARSoxBufferPos noteBufPos;
@@ -253,6 +286,7 @@ void BARSoxPatternSoundSystem::play(unsigned int loops)
                 }
                 //for the rest
                 sox_write(audioOutput, &sndBuf[i], ibegin+noteBufPos.len-i);
+                emit endOfNoteDetected(notesPerBeat*beat+note);
             }
         }
     }
