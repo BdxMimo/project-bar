@@ -3,18 +3,22 @@
 
 #include "BARDefines.h"
 
+#include <QObject>
+
 #include <vector>
 #include <sox.h>
 #include "BARSoxPositionNode.h"
 #include "BARSoxTrack.h"
 #include "BARSimpleResampler.h"
 
-class BARSoxPatternSoundSystem
+class BARSoxPatternSoundSystem : public QObject
 {
+    Q_OBJECT
+
     protected:
         std::vector<sox_sample_t> sndBuf;
         std::vector<BARSoxPositionNode*> positionTrees;
-        std::vector<BARSoxTrack> tracks;
+        std::vector<BARSoxTrack*> tracks;
 
         unsigned int tempo;
         unsigned int nBeats;
@@ -32,24 +36,25 @@ class BARSoxPatternSoundSystem
         BARSoxPatternSoundSystem();
         BARSoxPatternSoundSystem(unsigned int tempo, unsigned int nBeats, unsigned int notesPerBeat);
 
+        void changeNBeats(unsigned int newVal);
+        void changeNotesPerBeat(unsigned int newVal);  
+
+        void updateSoundBuffer();
+
+        ~BARSoxPatternSoundSystem();
+
+    public slots:
         unsigned int addTrack(const char* filename);
         unsigned int deleteTrack(unsigned int i);
 
-        void changeTempo(unsigned int newVal);
-        void changeNBeats(unsigned int newVal);
-        void changeNotesPerBeat(unsigned int newVal);
-
         void changeVolume(unsigned int iTrack, unsigned int iNote, unsigned int v);
-        void changeMasterVolume(unsigned int iTrack, unsigned int mv);
 
-        void changeMute(unsigned int iTrack, bool mute);
-
-        void updateSoundBuffer();
         void play(unsigned int loops=1);
-
         void preview(unsigned int iTrack);
 
-        ~BARSoxPatternSoundSystem();
+        void changeMasterVolume(unsigned int iTrack, unsigned int mv);
+        void changeMute(unsigned int iTrack, bool mute);
+        void changeTempo(unsigned int newVal);
 };
 
 #endif // BARSOXPATTERNSOUNDSYSTEM_H

@@ -24,20 +24,29 @@ class BARSoundBar : public QWidget
     Q_OBJECT
     
 public:
-    explicit BARSoundBar(QWidget *parent = 0,QString name="");
+    explicit BARSoundBar(unsigned int i, QWidget *parent = 0, QString name="");
     ~BARSoundBar();
     QString getFileName();
     void setFileName(QString);
+    void setIndex(unsigned int i);
     
-private slots:
+public slots:
     void on_buttonSoundImport_2_clicked();
     void on_buttonSoundDelete_2_clicked();
+    void on_buttonSoundPlay_2_clicked();
+    void onGaugeValueChanged(unsigned int value, unsigned int iNote);
+
+signals:
+    void valueChanged(unsigned int iTrack, unsigned int iNote, unsigned int value);
+    void hasBeenDeleted(unsigned int iTrack);
+    void wantPreview(unsigned int iTrack);
 
 private:
     QVector<bool> rhythm; /**< Vector that contains the values of the soundgauges. */
     Ui::BARSoundBar *ui;
     QString fileName; /**< Name of the sound associated to the soundbar. */
     int gaugeNumber; /**< Number of soundgauges the will be created on the right of the tag displaying the name of the file. */
+    unsigned int iTrack;
 };
 
 #endif // BARSOUNDBAR_H

@@ -23,7 +23,7 @@ BARSoxPatternSoundSystem::BARSoxPatternSoundSystem()
 
     updatePositionTrees();
 
-    tracks.resize(0);
+    tracks.clear();
 }
 
 BARSoxPatternSoundSystem::BARSoxPatternSoundSystem(unsigned int tempo, unsigned int nBeats, unsigned int notesPerBeat)
@@ -50,7 +50,7 @@ BARSoxPatternSoundSystem::BARSoxPatternSoundSystem(unsigned int tempo, unsigned 
 
 unsigned int BARSoxPatternSoundSystem::addTrack(const char *filename)
 {
-    tracks.push_back(BARSoxTrack(filename, nBeats, notesPerBeat));
+    tracks.push_back(new BARSoxTrack(filename, nBeats, notesPerBeat));
     changed = true;
 
     return tracks.size();
@@ -81,7 +81,7 @@ void BARSoxPatternSoundSystem::changeNBeats(unsigned int newVal)
     //change the tracks with the new value (if identical, no need to change)
     if (nBeats != newVal) {
         for (unsigned int i=0; i<tracks.size(); i++) {
-            tracks[i].nBeatsChanged(newVal);
+            tracks[i]->nBeatsChanged(newVal);
         }
         changed = true;
     }
@@ -112,7 +112,7 @@ void BARSoxPatternSoundSystem::changeNotesPerBeat(unsigned int newVal)
 {
     if (notesPerBeat != newVal) {
         for (unsigned int i=0; i<tracks.size(); i++) {
-            tracks[i].notesPerBeatChanged(newVal);
+            tracks[i]->notesPerBeatChanged(newVal);
         }
 
         notesPerBeat = newVal;
@@ -124,7 +124,7 @@ void BARSoxPatternSoundSystem::changeNotesPerBeat(unsigned int newVal)
 void BARSoxPatternSoundSystem::changeVolume(unsigned int iTrack, unsigned int iNote, unsigned int v)
 {
     if (iTrack < tracks.size()) {
-        tracks[iTrack].setVolumeAt(iNote, v);
+        tracks[iTrack]->setVolumeAt(iNote, v);
         changed = true;
     }
 }
@@ -132,7 +132,7 @@ void BARSoxPatternSoundSystem::changeVolume(unsigned int iTrack, unsigned int iN
 void BARSoxPatternSoundSystem::changeMasterVolume(unsigned int iTrack, unsigned int mv)
 {
     if (iTrack < tracks.size()) {
-        tracks[iTrack].setMasterVolume(mv);
+        tracks[iTrack]->setMasterVolume(mv);
         changed = true;
     }
 }
@@ -140,7 +140,7 @@ void BARSoxPatternSoundSystem::changeMasterVolume(unsigned int iTrack, unsigned 
 void BARSoxPatternSoundSystem::changeMute(unsigned int iTrack, bool mute)
 {
     if (iTrack < tracks.size()) {
-        tracks[iTrack].setMute(mute);
+        tracks[iTrack]->setMute(mute);
         changed = true;
     }
 }
@@ -164,7 +164,7 @@ void BARSoxPatternSoundSystem::updatePositionTrees()
 
 void BARSoxPatternSoundSystem::updateSoundBuffer()
 {
-    BARSoxTrack track;
+    BARSoxTrack* track = NULL;
     BARSoxPositionNode* posNode = NULL;
     sox_sample_t* position = NULL;
     vector<sox_sample_t> trackBuf;
@@ -186,11 +186,11 @@ void BARSoxPatternSoundSystem::updateSoundBuffer()
 
     for (i=0; i<tracks.size(); i++) {
         track = tracks[i];
-        trackProperties = track.getProperties();
-        masterVolume = track.getMasterVolume();
+        trackProperties = track->getProperties();
+        masterVolume = track->getMasterVolume();
 
-        if (!track.isMute() && masterVolume > 0) {
-            trackBuf = track.getTrackSoundBuffer();
+        if (!track->isMute() && masterVolume > 0) {
+            trackBuf = track->getTrackSoundBuffer();
             BARSimpleResampler<sox_sample_t>::resample(trackBuf, trackProperties.rate, soundProperties.rate, true);
 
             for (beat=0; beat<nBeats; beat++) {
@@ -198,7 +198,7 @@ void BARSoxPatternSoundSystem::updateSoundBuffer()
 
                 for (note=0; note<notesPerBeat; note++) {
                     position = posNode->getAt(note).pos;
-                    volume = track.getVolumeAt(beat*notesPerBeat+note);
+                    volume = track->getVolumeAt(beat*notesPerBeat+note);
 
                     if (volume > 0) {
                         sampleVol = (volume/100)*(masterVolume/100);
@@ -261,8 +261,8 @@ void BARSoxPatternSoundSystem::play(unsigned int loops)
 void BARSoxPatternSoundSystem::preview(unsigned int iTrack)
 {
     if (iTrack < tracks.size()) {
-        vector<sox_sample_t> trackBuf = tracks[iTrack].getTrackSoundBuffer();
-        sox_signalinfo_t prevProperties = tracks[iTrack].getProperties();
+        vector<sox_sample_t> trackBuf = tracks[iTrack]->getTrackSoundBuffer();
+        sox_signalinfo_t prevProperties = tracks[iTrack]->getProperties();
 
         BARSimpleResampler<sox_sample_t>::resample(trackBuf, prevProperties.rate, soundProperties.rate, prevProperties.channels == 2);
 
@@ -283,9 +283,13 @@ void BARSoxPatternSoundSystem::preview(unsigned int iTrack)
 
 BARSoxPatternSoundSystem::~BARSoxPatternSoundSystem()
 {
-    for (int i = 0; i < positionTrees.size(); i++) {
+    for (unsigned int i = 0; i < positionTrees.size(); i++) {
         delete positionTrees.back();
         positionTrees.pop_back();
+    }
+
+    for (unsigned int i = 0; i < tracks.size(); i++) {
+        delete tracks[i];
     }
 
     sox_quit();

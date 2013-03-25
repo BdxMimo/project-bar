@@ -32,12 +32,12 @@ BARSoxTrack::BARSoxTrack(const char *filename, unsigned int nBeats, unsigned int
     sox_read(sound, &trackSoundBuffer[0], properties.length);
 
     volumeTrees.clear();
+    volumeTrees.reserve(nBeats);
     for (unsigned int beat = 0; beat < nBeats; beat++) {
-        volumeTrees.push_back(new BARSoxNode<unsigned int>);
-        for(unsigned int elts = 1; elts < notesPerBeat; elts *= 2) {
-            volumeTrees.back()->divideLeaves();
-        }
+        volumeTrees.push_back(new BARSoxNode<unsigned int>());
     }
+
+    updateVolumeTrees(1,notesPerBeat);
 }
 
 void BARSoxTrack::updateVolumeTrees(unsigned int npbBegin, unsigned int npbEnd)
@@ -133,8 +133,9 @@ sox_signalinfo_t BARSoxTrack::getProperties()
 
 BARSoxTrack::~BARSoxTrack()
 {
-    for (int i = 0; i < volumeTrees.size(); i++) {
-        delete volumeTrees.back();
-        volumeTrees.pop_back();
+    for (unsigned int i = 0; i < volumeTrees.size(); i++) {
+        delete volumeTrees[i];
     }
+
+    volumeTrees.clear();
 }

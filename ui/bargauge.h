@@ -20,14 +20,18 @@ class BARGauge : public QWidget
     Q_OBJECT
     
 public:
-    explicit BARGauge(QWidget *parent = 0);
+    explicit BARGauge(unsigned int i, QWidget *parent = 0);
     ~BARGauge();
     void mousePressEvent(QMouseEvent*);
+
+signals:
+    void valueChanged(unsigned int volume, unsigned int iNote);
     
 private:
     Ui::BARGauge *ui;
     QColor offColor,onColor,playingColor; /**< variables that control the color of the gauge : transparent when not clicked, colored when clicked. */
     unsigned int volume; /**< value of the volume at which the sound has to be played (proportional to the height of the colored part of the gauge. */
+    unsigned int iNote;
 };
 
 #endif // BARGAUGE_H

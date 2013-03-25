@@ -21,7 +21,7 @@
  * @param[in] parent widget.
  * @param[in] name of the sound associated to the soundbar.
  */
-BARSoundBar::BARSoundBar(QWidget *parent,QString name) :
+BARSoundBar::BARSoundBar(unsigned int i, QWidget *parent, QString name) :
     QWidget(parent),
     ui(new Ui::BARSoundBar)
 {
@@ -29,9 +29,11 @@ BARSoundBar::BARSoundBar(QWidget *parent,QString name) :
     fileName=name;
     ui->labelSoundName_2->setText(fileName); /**< Initialize tag to display the name of the sound associated to the soundbar. */
     gaugeNumber=16;
-    for(int i=0;i<gaugeNumber;i++) /**< Create gaugeNumber soundgauges placed on the right of the soundbar. */
+    iTrack = i;
+    for(unsigned int j=0;j<gaugeNumber;j++) /**< Create gaugeNumber soundgauges placed on the right of the soundbar. */
     {
-        BARGauge *newBarGauge = new BARGauge();
+        BARGauge *newBarGauge = new BARGauge(j, this);
+        connect(newBarGauge, SIGNAL(valueChanged(uint,uint)), this, SLOT(onGaugeValueChanged(uint,uint)));
         ui->horizontalLayout->addWidget(newBarGauge);
     }
 }
@@ -61,7 +63,18 @@ void BARSoundBar::on_buttonSoundImport_2_clicked()
  */
 void BARSoundBar::on_buttonSoundDelete_2_clicked()
 {
+    emit hasBeenDeleted(iTrack);
     delete this;
+}
+
+void BARSoundBar::on_buttonSoundPlay_2_clicked()
+{
+    emit wantPreview(iTrack);
+}
+
+void BARSoundBar::onGaugeValueChanged(unsigned int value, unsigned int iNote)
+{
+    emit valueChanged(iTrack, iNote, value);
 }
 
 /**
@@ -80,4 +93,9 @@ void BARSoundBar::setFileName(QString name)
 QString BARSoundBar::getFileName()
 {
     return fileName;
+}
+
+void BARSoundBar::setIndex(unsigned int i)
+{
+    iTrack = i;
 }

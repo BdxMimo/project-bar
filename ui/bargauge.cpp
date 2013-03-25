@@ -12,7 +12,7 @@
  * @brief Constructor.
  * @param[in] parent widget.
  */
-BARGauge::BARGauge(QWidget *parent) :
+BARGauge::BARGauge(unsigned int i, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::BARGauge)
 {
@@ -21,6 +21,7 @@ BARGauge::BARGauge(QWidget *parent) :
     volume=0; /**< gauge volume is iniated as inactive : thus volume value is 0. */
     offColor=QColor(255,255,255,200); /**< define the color of the gauge when inactive (clicked). */
     onColor=QColor(0,0,255,127); /**< define the color of the gauge when active (clicked). */
+    iNote = i;
 
     QPalette palette = this->palette();
     palette.setColor(QPalette::Background,offColor); /**< gauge is iniated as inactive : the corresponding color is set upon creation of the gauge. */
@@ -50,4 +51,6 @@ void BARGauge::mousePressEvent(QMouseEvent *event)
     palette.setColor(QPalette::Background,volume == 0 ? offColor : onColor);
     this->setAutoFillBackground(true);
     this->setPalette(palette);
+
+    emit valueChanged(volume, iNote);
 }
