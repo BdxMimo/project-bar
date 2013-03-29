@@ -39,7 +39,7 @@ HEADERS  += src/barwindow.h \
     ui/barsongareascene.h \
     ui/barexportdialog.h
 
-win32 {
+
 SOURCES += BARSox/BARSoxTrack.cpp \
     BARSox/BARSoxBufferPos.cpp \
     BARSox/BARSoxPatternSoundSystem.cpp
@@ -52,6 +52,7 @@ HEADERS += BARSox/BARSoxTrack.h \
     BARSox/BARSimpleResampler.h \
     BARSox/BARDefines.h
 
+win32 {
 LIBS += -LC:/Sox/sox-14.4.1rc3/src/.libs -llibsox
 INCLUDEPATH += C:/Sox/sox-14.4.1rc3/src/
 }

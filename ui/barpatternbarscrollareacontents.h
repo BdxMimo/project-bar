@@ -5,16 +5,16 @@
 #include <QColor>
 #include <QWidget>
 
+namespace Ui {
+class BARPatternBarScrollAreaContents;
+}
+
+
 /**
  * @brief Contains the list of the pattern bars.
  * When clicking the "+" button, a new pattern bar is created and added under the last one.
  * There is no "list" in the sense of C++, the bars are just added to the layout upon creation.
  */
-
-namespace Ui {
-class BARPatternBarScrollAreaContents;
-}
-
 class BARPatternBarScrollAreaContents : public QWidget
 {
     Q_OBJECT

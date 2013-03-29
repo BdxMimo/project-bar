@@ -7,15 +7,14 @@
 #include <QString>
 #include <QCloseEvent>
 
-/**
- * @brief This class allows the final export of the song (conversion into standard audio format).
- * When clicking the export button in the "song" tab, dialog pops up to set parameters for exportation of the song.
- */
-
 namespace Ui {
 class barexportdialog;
 }
 
+/**
+ * @brief This class allows the final export of the song (conversion into standard audio format).
+ * When clicking the export button in the "song" tab, dialog pops up to set parameters for exportation of the song.
+ */
 class BARExportDialog : public QDialog
 {
     Q_OBJECT

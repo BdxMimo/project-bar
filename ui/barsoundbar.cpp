@@ -6,16 +6,6 @@
 #include <QFileInfo>
 
 /**
- * @brief Creates a soundbar in the tab "pattern".
- *
- * Each instance of this class is associated to a sound.
- * When pressing the "+" button (BARTabPattern), a soundbar is created and inserted under the last one.
- * Dialog box pops up, and the selected sound is associated to the new soundbar.
- * The name of the selected file is displayed on the tag.
- * Finally, upon creation of the soundbar, a certain number of soundgauges is created after the tag displaying the name.
- */
-
-/**
  * @brief Constructor of the class.
  *
  * @param[in] parent widget.
