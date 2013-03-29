@@ -5,15 +5,16 @@
 #include <QColor>
 #include <QMouseEvent>
 
-namespace Ui {
-class BARGauge;
-}
-
 /**
  * @brief Implements the gauge played in the "pattern" tab.
  * This gauge controls when a sound is played, and at which volume.
  * A series of gauges is created in each soundbar, by the constructor of the class "barsoundbar".
  */
+
+namespace Ui {
+class BARGauge;
+}
+
 class BARGauge : public QWidget
 {
     Q_OBJECT

@@ -7,15 +7,15 @@
 #include "barsoundbar.h"
 #include "BARSox/BARSoxPatternSoundSystem.h"
 
+/**
+ * @brief Implements the interface in the "pattern" tab.
+ * Allows the manipulation of the sound bars.
+ */
 
 namespace Ui {
 class BARtabPattern;
 }
 
-/**
- * @brief Implements the interface in the "pattern" tab.
- * Allows the manipulation of the sound bars.
- */
 class BARtabPattern : public QWidget
 {
     Q_OBJECT

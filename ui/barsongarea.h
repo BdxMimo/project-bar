@@ -4,15 +4,16 @@
 #include <QColor>
 #include <QWidget>
 
-namespace Ui {
-class BARSongArea;
-}
-
 /**
  * @brief Displays the list of pattern bars on the left, and the timeline on the right.
  * Is displayed in the song tab of the main window.
  * All interesting data is in the ui file.
  */
+
+namespace Ui {
+class BARSongArea;
+}
+
 class BARSongArea : public QWidget
 {
     Q_OBJECT

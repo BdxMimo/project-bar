@@ -7,10 +7,6 @@
 
 #include "bargauge.h"
 
-namespace Ui {
-class BARSoundBar;
-}
-
 /**
  * @brief Creates a soundbar in the tab "pattern".
  *
@@ -20,6 +16,11 @@ class BARSoundBar;
  * The name of the selected file is displayed on the tag.
  * Finally, upon creation of the soundbar, a certain number of soundgauges is created after the tag displaying the name.
  */
+
+namespace Ui {
+class BARSoundBar;
+}
+
 class BARSoundBar : public QWidget
 {
     Q_OBJECT

@@ -4,13 +4,14 @@
 #include <QWidget>
 #include <QPainter>
 
+/**
+ * @brief This class is not used anymore. Can be deleted.
+ */
+
 namespace Ui {
 class BARSongTimeLine;
 }
 
-/**
- * @brief This class is not used anymore. Can be deleted.
- */
 class BARSongTimeLine : public QWidget
 {
     Q_OBJECT

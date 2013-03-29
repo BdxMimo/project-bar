@@ -8,6 +8,7 @@
  * @brief Display BARSongAreaScene.
  * BARSongAreaScene is the model of the timeline. This class displays it.
  */
+
 class BARSongAreaView : public QGraphicsView
 {
     Q_OBJECT
