@@ -31,3 +31,7 @@ Makefile*
 
 #generated UI files (for the moment ?)
 ui_*.h
+
+#Microsoft Word files
+*.doc
+*.docx
