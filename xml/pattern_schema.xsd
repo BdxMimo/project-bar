@@ -8,6 +8,7 @@
 <xs:element name="pattern" type="T_PATTERN"/>
 <xs:element name="track" type="T_TRACK"/>
 <xs:element name="beat" type="T_BEAT"/>
+<xs:element name="path" type="T_PATH"/>
 
 <xs:complexType name="T_PATTERN">
 	<xs:sequence>
@@ -33,10 +34,10 @@
 
 <xs:complexType name="T_TRACK">
 	<xs:sequence>
+		<xs:element name="sound" type="T_PATH"/>
 		<xs:element ref="beat" maxOccurs="unbounded"/>
 	</xs:sequence>
- 
-	<xs:attribute name="sound" type="T_PATH" use="required"/>
+
 	<xs:attribute name="masterVolume" type="T_VOLUME" use="required"/>
 </xs:complexType>
 
