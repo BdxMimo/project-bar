@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+ 
+<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN"
+                           "http://www.w3.org/2001/XMLSchema.dtd">
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="pattern" type="T_PATTERN"/>
+<xs:element name="track" type="T_TRACK"/>
+<xs:element name="beat" type="T_BEAT"/>
+
+<xs:complexType name="T_PATTERN">
+	<xs:sequence>
+		<xs:element ref="track" maxOccurs="unbounded"/>
+	</xs:sequence>
+ 
+	<xs:attribute name="tempo" type="T_TEMPO" use="required"/>
+	<xs:attribute name="binary" type="xs:boolean" use="required"/>
+</xs:complexType>
+
+<xs:simpleType name="type-path">
+	<xs:restriction base="xs:string">
+		<xs:pattern value="^(([a-zA-Z]:|\\)\\)?(((\.)|(\.\.)|([^\\/:\*\?"\|<>\. ](([^\\/:\*\?"\|<>\. ])|([^\\/:\*\?"\|<>]*[^\\/:\*\?"\|<>\. ]))?))\\)*[^\\/:\*\?"\|<>\. ](([^\\/:\*\?"\|<>\. ])|([^\\/:\*\?"\|<>]*[^\\/:\*\?"\|<>\. ]))?$"/>
+	</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="T_TEMPO">
+	<xs:restriction base="xs:unsignedShort">
+		<xs:minInclusive value="20"/>
+		<xs:maxInclusive value="244"/>
+	</xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="T_TRACK">
+	<xs:sequence>
+		<xs:element ref="beat" maxOccurs="unbounded"/>
+	</xs:sequence>
+ 
+	<xs:attribute name="sound" type="T_PATH" use="required"/>
+	<xs:attribute name="masterVolume" type="T_VOLUME" use="required"/>
+</xs:complexType>
+
+<xs:simpleType name="T_VOLUME">
+	<xs:restriction base="xs:unsignedShort">
+		<xs:minInclusive value="0"/>
+		<xs:maxInclusive value="100"/>
+	</xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="T_BEAT">
+	<xs:sequence/>
+	<xs:attribute name="volume" type="T_VOLUME" use="required"/>
+</xs:complexType>
+
+</xs:schema> 

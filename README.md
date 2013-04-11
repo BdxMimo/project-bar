@@ -1,4 +1,4 @@
-project-bar
-===========
+Welcome to project-bar!
+=======================
 
-Projet Boîte à Rythmes (Ecole Centrale Lyon)
+This is the project-bar Github repo. Before starting to work on project-bar, read the [Wiki](./wiki) :)
